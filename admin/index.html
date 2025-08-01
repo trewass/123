@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админка - Мебель не для всех</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        
+        .container { display: flex; min-height: 100vh; }
+        
+        .sidebar { width: 250px; background: #2c3e50; color: white; padding: 20px; }
+        .sidebar h2 { margin-bottom: 30px; color: white; }
+        .menu { list-style: none; }
+        .menu li { margin: 10px 0; }
+        .menu a { color: white; text-decoration: none; padding: 10px; display: block; border-radius: 5px; }
+        .menu a:hover, .menu a.active { background: #34495e; }
+        
+        .main { flex: 1; padding: 20px; }
+        .header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .content { background: white; padding: 20px; border-radius: 8px; }
+        
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-success { background: #27ae60; color: white; }
+        .btn-danger { background: #e74c3c; color: white; }
+        
+        .form-group { margin: 15px 0; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; 
+        }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 500px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .close { font-size: 24px; cursor: pointer; }
+        
+        .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .table th, .table td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        .table th { background: #f8f9fa; }
+        
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 32px; font-weight: bold; color: #2c3e50; }
+        .stat-label { color: #7f8c8d; margin-top: 5px; }
+        
+        .success { color: #27ae60; background: #d5f4e6; padding: 10px; border-radius: 5px; margin: 10px 0; }
+        .error { color: #e74c3c; background: #fdeaea; padding: 10px; border-radius: 5px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Админка</h2>
+            <ul class="menu">
+                <li><a href="#" onclick="showPage('dashboard')" class="active">Главная</a></li>
+                <li><a href="#" onclick="showPage('projects')">Проекты</a></li>
+                <li><a href="#" onclick="showPage('stories')">Stories</a></li>
+                <li><a href="#" onclick="showPage('blog')">Блог</a></li>
+                <li><a href="#" onclick="showPage('leads')">Заявки</a></li>
+            </ul>
+            <br><br>
+            <button class="btn btn-danger" onclick="logout()">Выйти</button>
+        </div>
+        
+        <div class="main">
+            <div class="header">
+                <h1 id="page-title">Главная</h1>
+                <button id="add-btn" class="btn btn-primary" onclick="openAddModal()" style="display:none;">Добавить</button>
+            </div>
+            
+            <div class="content" id="content">
+                <div id="loading">Загрузка...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Добавить</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+    
+    <script>
+        const API_KEY = 'patQfujQaKiRKW0ix.9968ac4d5d84d30dc7f7ac663c993282324a6cfb07125313b2c58268f943b4ee';
+        const BASE_ID = 'appayVD9m1J1bR13Z';
+        let currentPage = 'dashboard';
+        
+        // Проверка авторизации
+        if (!localStorage.getItem('admin_logged_in')) {
+            window.location.href = 'login.html';
+        }
+        
+        // Функция API запроса
+        async function apiRequest(table, method = 'GET', data = null) {
+            const url = `https://api.airtable.com/v0/${BASE_ID}/${table}`;
+            const options = {
+                method: method,
+                headers: {
+                    'Authorization': `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+            
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API Error:', error);
+                return { error: error.message };
+            }
+        }
+        
+        // Показать страницу
+        async function showPage(page) {
+            currentPage = page;
+            
+            // Обновить активное меню
+            document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Обновить заголовок
+            const titles = {
+                'dashboard': 'Главная',
+                'projects': 'Проекты',
+                'stories': 'Stories', 
+                'blog': 'Блог',
+                'leads': 'Заявки'
+            };
+            document.getElementById('page-title').textContent = titles[page];
+            
+            // Показать/скрыть кнопку добавления
+            const addBtn = document.getElementById('add-btn');
+            if (['projects', 'stories', 'blog'].includes(page)) {
+                addBtn.style.display = 'block';
+            } else {
+                addBtn.style.display = 'none';
+            }
+            
+            // Загрузить контент
+            const content = document.getElementById('content');
+            content.innerHTML = '<div id="loading">Загрузка...</div>';
+            
+            try {
+                let html = '';
+                
+                if (page === 'dashboard') {
+                    html = await getDashboard();
+                } else if (page === 'projects') {
+                    html = await getProjects();
+                } else if (page === 'stories') {
+                    html = await getStories();
+                } else if (page === 'blog') {
+                    html = await getBlog();
+                } else if (page === 'leads') {
+                    html = await getLeads();
+                }
+                
+                content.innerHTML = html;
+            } catch (error) {
+                content.innerHTML = `<div class="error">Ошибка загрузки: ${error.message}</div>`;
+            }
+        }
+        
+        // Получить дашборд
+        async function getDashboard() {
+            const [projects, stories, blog, leads] = await Promise.all([
+                apiRequest('Projects'),
+                apiRequest('Stories'),
+                apiRequest('Blog Posts'),
+                apiRequest('Leads')
+            ]);
+            
+            return `
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">${projects.records ? projects.records.length : 0}</div>
+                        <div class="stat-label">Проектов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${stories.records ? stories.records.length : 0}</div>
+                        <div class="stat-label">Stories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${blog.records ? blog.records.length : 0}</div>
+                        <div class="stat-label">Статей</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${leads.records ? leads.records.length : 0}</div>
+                        <div class="stat-label">Заявок</div>
+                    </div>
+                </div>
+                <h3>Последние заявки</h3>
+                ${getLeadsTable(leads.records ? leads.records.slice(0, 5) : [])}
+            `;
+        }
+        
+        // Получить проекты
+        async function getProjects() {
+            const result = await apiRequest('Projects');
+            const projects = result.records || [];
+            
+            let html = '<h3>Управление проектами</h3>';
+            
+            if (projects.length === 0) {
+                html += '<p>Пока нет проектов. Добавьте первый!</p>';
+            } else {
+                html += `
+                    <table class="table">
+                        <tr>
+                            <th>Название</th>
+                            <th>Тип</th>
+                            <th>Город</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                `;
+                
+                projects.forEach(project => {
+                    const fields = project.fields;
+                    html += `
+                        <tr>
+                            <td>${fields.Name || ''}</td>
+                            <td>${fields.Type || ''}</td>
+                            <td>${fields.City || ''}</td>
+                            <td>${fields.Status || 'Черновик'}</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="deleteRecord('Projects', '${project.id}')">Удалить</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</table>';
+            }
+            
+            return html;
+        }
+        
+        // Получить Stories
+        async function getStories() {
+            const result = await apiRequest('Stories');
+            const stories = result.records || [];
+            
+            let html = '<h3>Управление Stories</h3>';
+            
+            if (stories.length === 0) {
+                html += '<p>Пока нет историй. Добавьте первую!</p>';
+            } else {
+                html += `
+                    <table class="table">
+                        <tr>
+                            <th>Заголовок</th>
+                            <th>Тип</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                `;
+                
+                stories.forEach(story => {
+                    const fields = story.fields;
+                    html += `
+                        <tr>
+                            <td>${fields.Title || ''}</td>
+                            <td>${fields.Type || ''}</td>
+                            <td>${fields.Status || 'Неактивна'}</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="deleteRecord('Stories', '${story.id}')">Удалить</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</table>';
+            }
+            
+            return html;
+        }
+        
+        // Получить блог
+        async function getBlog() {
+            const result = await apiRequest('Blog Posts');
+            const posts = result.records || [];
+            
+            let html = '<h3>Управление блогом</h3>';
+            
+            if (posts.length === 0) {
+                html += '<p>Пока нет статей. Добавьте первую!</p>';
+            } else {
+                html += `
+                    <table class="table">
+                        <tr>
+                            <th>Заголовок</th>
+                            <th>Категория</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                `;
+                
+                posts.forEach(post => {
+                    const fields = post.fields;
+                    html += `
+                        <tr>
+                            <td>${fields.Title || ''}</td>
+                            <td>${fields.Category || ''}</td>
+                            <td>${fields.Status || 'Черновик'}</td>
+                            <td>
+                                <button class="btn btn-danger" onclick="deleteRecord('Blog Posts', '${post.id}')">Удалить</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</table>';
+            }
+            
+            return html;
+        }
+        
+        // Получить заявки
+        async function getLeads() {
+            const result = await apiRequest('Leads');
+            const leads = result.records || [];
+            
+            let html = '<h3>Заявки клиентов</h3>';
+            html += getLeadsTable(leads);
+            
+            return html;
+        }
+        
+        // Таблица заявок
+        function getLeadsTable(leads) {
+            if (leads.length === 0) {
+                return '<p>Пока нет заявок.</p>';
+            }
+            
+            let html = `
+                <table class="table">
+                    <tr>
+                        <th>Имя</th>
+                        <th>Телефон</th>
+                        <th>Услуга</th>
+                        <th>Статус</th>
+                    </tr>
+            `;
+            
+            leads.forEach(lead => {
+                const fields = lead.fields;
+                html += `
+                    <tr>
+                        <td>${fields.Name || ''}</td>
+                        <td><a href="tel:${fields.Phone || ''}">${fields.Phone || ''}</a></td>
+                        <td>${fields['Service Type'] || ''}</td>
+                        <td>${fields.Status || 'Новая'}</td>
+                    </tr>
+                `;
+            });
+            
+            html += '</table>';
+            return html;
+        }
+        
+        // Открыть модальное окно
+        function openAddModal() {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+            
+            let formHtml = '';
+            
+            if (currentPage === 'projects') {
+                title.textContent = 'Добавить проект';
+                formHtml = `
+                    <form onsubmit="submitProject(event)">
+                        <div class="form-group">
+                            <label>Название проекта *</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Тип проекта *</label>
+                            <select name="type" required>
+                                <option value="">Выберите тип</option>
+                                <option value="Кухня">Кухня</option>
+                                <option value="Гардероб">Гардероб</option>
+                                <option value="Ванная">Ванная</option>
+                                <option value="Дом под ключ">Дом под ключ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Город *</label>
+                            <input type="text" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <textarea name="description" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                        <button type="button" class="btn" onclick="closeModal()">Отмена</button>
+                    </form>
+                `;
+            } else if (currentPage === 'stories') {
+                title.textContent = 'Добавить историю';
+                formHtml = `
+                    <form onsubmit="submitStory(event)">
+                        <div class="form-group">
+                            <label>Заголовок *</label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Тип *</label>
+                            <select name="type" required>
+                                <option value="">Выберите тип</option>
+                                <option value="Процесс">Процесс</option>
+                                <option value="Результат">Результат</option>
+                                <option value="Отзыв">Отзыв</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                        <button type="button" class="btn" onclick="closeModal()">Отмена</button>
+                    </form>
+                `;
+            } else if (currentPage === 'blog') {
+                title.textContent = 'Добавить статью';
+                formHtml = `
+                    <form onsubmit="submitBlog(event)">
+                        <div class="form-group">
+                            <label>Заголовок *</label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Содержание *</label>
+                            <textarea name="content" rows="6" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Категория</label>
+                            <select name="category">
+                                <option value="Советы">Советы</option>
+                                <option value="Тренды">Тренды</option>
+                                <option value="Материалы">Материалы</option>
+                                <option value="Процесс">Процесс</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                        <button type="button" class="btn" onclick="closeModal()">Отмена</button>
+                    </form>
+                `;
+            }
+            
+            body.innerHTML = formHtml;
+            modal.classList.add('show');
+        }
+        
+        // Закрыть модальное окно
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+        
+        // Отправить проект
+        async function submitProject(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            
+            const data = {
+                records: [{
+                    fields: {
+                        'Name': formData.get('name'),
+                        'Type': formData.get('type'),
+                        'City': formData.get('city'),
+                        'Description': formData.get('description'),
+                        'Status': 'Черновик'
+                    }
+                }]
+            };
+            
+            const result = await apiRequest('Projects', 'POST', data);
+            
+            if (result.records) {
+                showMessage('Проект добавлен!', 'success');
+                closeModal();
+                showPage('projects');
+            } else {
+                showMessage('Ошибка: ' + (result.error || 'Неизвестная ошибка'), 'error');
+            }
+        }
+        
+        // Отправить историю
+        async function submitStory(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            
+            const data = {
+                records: [{
+                    fields: {
+                        'Title': formData.get('title'),
+                        'Type': formData.get('type'),
+                        'Status': 'Активна'
+                    }
+                }]
+            };
+            
+            const result = await apiRequest('Stories', 'POST', data);
+            
+            if (result.records) {
+                showMessage('История добавлена!', 'success');
+                closeModal();
+                showPage('stories');
+            } else {
+                showMessage('Ошибка: ' + (result.error || 'Неизвестная ошибка'), 'error');
+            }
+        }
+        
+        // Отправить блог
+        async function submitBlog(event) {  
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            
+            const data = {
+                records: [{
+                    fields: {
+                        'Title': formData.get('title'),
+                        'Content': formData.get('content'),
+                        'Category': formData.get('category'),
+                        'Status': 'Черновик',
+                        'Author': 'Администратор'
+                    }
+                }]
+            };
+            
+            const result = await apiRequest('Blog Posts', 'POST', data);
+            
+            if (result.records) {
+                showMessage('Статья добавлена!', 'success');
+                closeModal();
+                showPage('blog');
+            } else {
+                showMessage('Ошибка: ' + (result.error || 'Неизвестная ошибка'), 'error');
+            }
+        }
+        
+        // Удалить запись
+        async function deleteRecord(table, id) {
+            if (!confirm('Удалить запись?')) return;
+            
+            const result = await apiRequest(`${table}/${id}`, 'DELETE');
+            
+            if (result.deleted) {
+                showMessage('Запись удалена!', 'success');
+                showPage(currentPage);
+            } else {
+                showMessage('Ошибка удаления', 'error');
+            }
+        }
+        
+        // Показать сообщение
+        function showMessage(text, type) {
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = text;
+            div.style.position = 'fixed';
+            div.style.top = '20px';
+            div.style.right = '20px';
+            div.style.zIndex = '9999';
+            div.style.padding = '15px';
+            div.style.borderRadius = '5px';
+            
+            document.body.appendChild(div);
+            
+            setTimeout(() => {
+                div.remove();
+            }, 3000);
+        }
+        
+        // Выход
+        function logout() {
+            localStorage.removeItem('admin_logged_in');
+            window.location.href = 'login.html';
+        }
+        
+        // Загрузить главную при старте
+        showPage('dashboard');
+    </script>
+</body>
+</html> 
