@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Мебель не для всех</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Админ-панель</h2>
+                <p>Мебель не для всех</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="#dashboard" data-page="dashboard"><i class="fas fa-tachometer-alt"></i>Главная</a></li>
+                <li><a href="#projects" data-page="projects"><i class="fas fa-images"></i>Проекты<span class="badge" id="projects-count">0</span></a></li>
+                <li><a href="#stories" data-page="stories"><i class="fas fa-video"></i>Stories<span class="badge" id="stories-count">0</span></a></li>
+                <li><a href="#blog" data-page="blog"><i class="fas fa-edit"></i>Блог<span class="badge" id="blog-count">0</span></a></li>
+                <li><a href="#leads" data-page="leads"><i class="fas fa-users"></i>Заявки<span class="badge new" id="leads-count">0</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Выйти</button>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="page-title">Главная</h1>
+                <button class="btn btn-primary" id="add-new-btn" style="display: none;"><i class="fas fa-plus"></i>Добавить</button>
+            </header>
+            <div class="content-area" id="content-area"></div>
+        </main>
+    </div>
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Заголовок</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html> 
