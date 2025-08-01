@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 
 interface AirtableRecord {
   id: string
@@ -15,41 +14,13 @@ export default function AdminPanel() {
   const [blogPosts, setBlogPosts] = useState<AirtableRecord[]>([])
   const [leads, setLeads] = useState<AirtableRecord[]>([])
   const [loading, setLoading] = useState(true)
-  const router = useRouter()
 
   const airtableBase = 'appayVD9m1J1bR13Z'
   const airtableToken = 'patQfujQaKiRKW0ix.9968ac4d5d84d30dc7f7ac663c993282324a6cfb07125313b2c58268f943b4ee'
 
   useEffect(() => {
-    checkAuth()
     loadData()
   }, [])
-
-  const checkAuth = () => {
-    const token = localStorage.getItem('admin_token')
-    if (!token) {
-      router.push('/admin/login')
-      return
-    }
-    
-    try {
-      const tokenData = JSON.parse(atob(token))
-      if (Date.now() > tokenData.expires) {
-        localStorage.removeItem('admin_token')
-        router.push('/admin/login')
-        return
-      }
-    } catch (error) {
-      localStorage.removeItem('admin_token')
-      router.push('/admin/login')
-      return
-    }
-  }
-
-  const logout = () => {
-    localStorage.removeItem('admin_token')
-    router.push('/admin/login')
-  }
 
   const fetchFromAirtable = async (tableName: string) => {
     try {
@@ -350,16 +321,20 @@ export default function AdminPanel() {
           </li>
         </ul>
         <div className="sidebar-footer">
-          <button className="logout-btn" onClick={logout}>
-            <i className="fas fa-sign-out-alt"></i>
-            Выйти
-          </button>
+          <a href="/" className="logout-btn">
+            <i className="fas fa-home"></i>
+            На главную
+          </a>
         </div>
       </nav>
       
       <main className="main-content">
         <header className="content-header">
           <h1>{getPageTitle()}</h1>
+          <button className="btn btn-primary" onClick={loadData}>
+            <i className="fas fa-refresh"></i>
+            Обновить
+          </button>
         </header>
         <div className="content-area">
           {renderContent()}
@@ -447,16 +422,21 @@ export default function AdminPanel() {
         .logout-btn {
           width: 100%;
           padding: 10px;
-          background: #e74c3c;
+          background: #3498db;
           color: white;
           border: none;
           border-radius: 5px;
           cursor: pointer;
           transition: background 0.3s ease;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
         }
         
         .logout-btn:hover {
-          background: #c0392b;
+          background: #2980b9;
         }
         
         .main-content {
@@ -477,6 +457,28 @@ export default function AdminPanel() {
         .content-header h1 {
           font-size: 28px;
           color: #2c3e50;
+        }
+        
+        .btn {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+        
+        .btn-primary {
+          background: #3498db;
+          color: white;
+        }
+        
+        .btn-primary:hover {
+          background: #2980b9;
         }
         
         .stats-grid {
