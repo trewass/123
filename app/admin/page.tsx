@@ -14,9 +14,34 @@ export default function AdminPanel() {
   const [blogPosts, setBlogPosts] = useState<AirtableRecord[]>([])
   const [leads, setLeads] = useState<AirtableRecord[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   const airtableBase = 'appayVD9m1J1bR13Z'
   const airtableToken = 'patQfujQaKiRKW0ix.9968ac4d5d84d30dc7f7ac663c993282324a6cfb07125313b2c58268f943b4ee'
+
+  // Тестовые данные для демонстрации
+  const mockData = {
+    projects: [
+      { id: '1', fields: { Name: 'Современная кухня в Ялте', Type: 'Кухня', City: 'Ялта', Status: 'Опубликован' } },
+      { id: '2', fields: { Name: 'Гардеробная в доме', Type: 'Гардероб', City: 'Краснодар', Status: 'Черновик' } },
+      { id: '3', fields: { Name: 'Ванная комната в коттедже', Type: 'Ванная', City: 'Феодосия', Status: 'Опубликован' } }
+    ],
+    stories: [
+      { id: '1', fields: { Title: 'Процесс изготовления кухни', Type: 'Процесс', Status: 'Активна' } },
+      { id: '2', fields: { Title: 'Результат работы', Type: 'Результат', Status: 'Активна' } },
+      { id: '3', fields: { Title: 'Отзыв клиента', Type: 'Отзыв', Status: 'Активна' } }
+    ],
+    blogPosts: [
+      { id: '1', fields: { Title: 'Как выбрать кухню', Category: 'Советы', Status: 'Опубликована' } },
+      { id: '2', fields: { Title: 'Тренды в мебели 2024', Category: 'Тренды', Status: 'Черновик' } },
+      { id: '3', fields: { Title: 'Материалы для кухни', Category: 'Материалы', Status: 'Опубликована' } }
+    ],
+    leads: [
+      { id: '1', fields: { Name: 'Иван Петров', Phone: '+7 999 123-45-67', 'Service Type': 'Кухня', Status: 'Новая' } },
+      { id: '2', fields: { Name: 'Мария Сидорова', Phone: '+7 999 234-56-78', 'Service Type': 'Гардероб', Status: 'В работе' } },
+      { id: '3', fields: { Name: 'Алексей Козлов', Phone: '+7 999 345-67-89', 'Service Type': 'Дом под ключ', Status: 'Завершена' } }
+    ]
+  }
 
   useEffect(() => {
     loadData()
@@ -46,6 +71,8 @@ export default function AdminPanel() {
 
   const loadData = async () => {
     setLoading(true)
+    setError('')
+    
     try {
       const [projectsData, storiesData, blogData, leadsData] = await Promise.all([
         fetchFromAirtable('Projects'),
@@ -54,45 +81,65 @@ export default function AdminPanel() {
         fetchFromAirtable('Leads')
       ])
       
-      setProjects(projectsData)
-      setStories(storiesData)
-      setBlogPosts(blogData)
-      setLeads(leadsData)
+      // Если данные из Airtable пустые, используем тестовые данные
+      setProjects(projectsData.length > 0 ? projectsData : mockData.projects)
+      setStories(storiesData.length > 0 ? storiesData : mockData.stories)
+      setBlogPosts(blogData.length > 0 ? blogData : mockData.blogPosts)
+      setLeads(leadsData.length > 0 ? leadsData : mockData.leads)
+      
+      if (projectsData.length === 0 && storiesData.length === 0 && blogData.length === 0 && leadsData.length === 0) {
+        setError('Данные из Airtable не загружены. Показаны тестовые данные.')
+      }
     } catch (error) {
       console.error('Ошибка загрузки данных:', error)
+      setError('Ошибка загрузки данных. Показаны тестовые данные.')
+      
+      // Используем тестовые данные при ошибке
+      setProjects(mockData.projects)
+      setStories(mockData.stories)
+      setBlogPosts(mockData.blogPosts)
+      setLeads(mockData.leads)
     }
     setLoading(false)
   }
 
   const renderDashboard = () => (
-    <div className="stats-grid">
-      <div className="stat-card">
-        <div className="stat-icon projects">
-          <i className="fas fa-images"></i>
+    <div>
+      {error && (
+        <div className="alert alert-warning">
+          <i className="fas fa-exclamation-triangle"></i>
+          {error}
         </div>
-        <div className="stat-number">{projects.length}</div>
-        <div className="stat-label">Проектов</div>
-      </div>
-      <div className="stat-card">
-        <div className="stat-icon stories">
-          <i className="fas fa-video"></i>
+      )}
+      <div className="stats-grid">
+        <div className="stat-card">
+          <div className="stat-icon projects">
+            <i className="fas fa-images"></i>
+          </div>
+          <div className="stat-number">{projects.length}</div>
+          <div className="stat-label">Проектов</div>
         </div>
-        <div className="stat-number">{stories.length}</div>
-        <div className="stat-label">Stories</div>
-      </div>
-      <div className="stat-card">
-        <div className="stat-icon blog">
-          <i className="fas fa-edit"></i>
+        <div className="stat-card">
+          <div className="stat-icon stories">
+            <i className="fas fa-video"></i>
+          </div>
+          <div className="stat-number">{stories.length}</div>
+          <div className="stat-label">Stories</div>
         </div>
-        <div className="stat-number">{blogPosts.length}</div>
-        <div className="stat-label">Статей</div>
-      </div>
-      <div className="stat-card">
-        <div className="stat-icon leads">
-          <i className="fas fa-users"></i>
+        <div className="stat-card">
+          <div className="stat-icon blog">
+            <i className="fas fa-edit"></i>
+          </div>
+          <div className="stat-number">{blogPosts.length}</div>
+          <div className="stat-label">Статей</div>
         </div>
-        <div className="stat-number">{leads.length}</div>
-        <div className="stat-label">Заявок</div>
+        <div className="stat-card">
+          <div className="stat-icon leads">
+            <i className="fas fa-users"></i>
+          </div>
+          <div className="stat-number">{leads.length}</div>
+          <div className="stat-label">Заявок</div>
+        </div>
       </div>
     </div>
   )
@@ -103,6 +150,12 @@ export default function AdminPanel() {
         <h3>Управление проектами</h3>
       </div>
       <div className="card-body">
+        {error && (
+          <div className="alert alert-warning">
+            <i className="fas fa-exclamation-triangle"></i>
+            {error}
+          </div>
+        )}
         <div className="table-container">
           <table className="table">
             <thead>
@@ -139,6 +192,12 @@ export default function AdminPanel() {
         <h3>Управление Stories</h3>
       </div>
       <div className="card-body">
+        {error && (
+          <div className="alert alert-warning">
+            <i className="fas fa-exclamation-triangle"></i>
+            {error}
+          </div>
+        )}
         <div className="table-container">
           <table className="table">
             <thead>
@@ -173,6 +232,12 @@ export default function AdminPanel() {
         <h3>Управление блогом</h3>
       </div>
       <div className="card-body">
+        {error && (
+          <div className="alert alert-warning">
+            <i className="fas fa-exclamation-triangle"></i>
+            {error}
+          </div>
+        )}
         <div className="table-container">
           <table className="table">
             <thead>
@@ -207,6 +272,12 @@ export default function AdminPanel() {
         <h3>Заявки клиентов</h3>
       </div>
       <div className="card-body">
+        {error && (
+          <div className="alert alert-warning">
+            <i className="fas fa-exclamation-triangle"></i>
+            {error}
+          </div>
+        )}
         <div className="table-container">
           <table className="table">
             <thead>
@@ -479,6 +550,21 @@ export default function AdminPanel() {
         
         .btn-primary:hover {
           background: #2980b9;
+        }
+        
+        .alert {
+          padding: 12px 16px;
+          border-radius: 5px;
+          margin-bottom: 20px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        
+        .alert-warning {
+          background: #fff3cd;
+          color: #856404;
+          border: 1px solid #ffeaa7;
         }
         
         .stats-grid {
