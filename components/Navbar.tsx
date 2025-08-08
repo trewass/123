@@ -24,6 +24,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
     { name: 'Главная', href: '#home' },
     { name: 'Тарифы', href: '#pricing' },
     { name: 'Примеры', href: '#examples' },
+    { name: 'Кейсы', href: '/case' },
     { name: 'Медиа', href: '/media' },
     { name: 'Контакты', href: '#contact' },
   ]
@@ -32,8 +33,16 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
     if (href.startsWith('#')) {
       const element = document.querySelector(href)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        // Добавляем небольшой отступ для фиксированной навигации
+        const offset = 80
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset - offset
+        window.scrollTo({
+          top: elementPosition,
+          behavior: 'smooth'
+        })
       }
+    } else if (href.startsWith('/')) {
+      window.location.href = href
     }
   }
 
@@ -64,6 +73,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             ))}
             <button 
               onClick={onOpenModal}
+              data-open-modal
               className="btn-primary text-sm"
             >
               Получить схемы
@@ -100,6 +110,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
                   onOpenModal?.()
                   setIsOpen(false)
                 }}
+                data-open-modal
                 className="btn-primary w-full mt-4"
               >
                 Получить схемы

@@ -97,11 +97,16 @@ export default function PsychologicalHooks() {
               >
                 <div className="flex items-start space-x-4">
                   {/* Фото Анастасии */}
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/30 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-pink-400 text-2xl sm:text-3xl">👩‍💼</span>
+                  <div className="w-24 h-32 sm:w-28 sm:h-36 bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="text-center space-y-2">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mx-auto">
+                        <span className="text-white text-lg sm:text-xl">📷</span>
+                      </div>
+                      <p className="text-xs text-white/80">Фото</p>
+                    </div>
                   </div>
                   
-                  <div className="space-y-3 flex-1">
+                  <div className="space-y-3 flex-1 w-[85%]">
                     <div>
                       <h4 className="text-lg sm:text-xl font-medium text-white mb-1">
                         Анастасия
@@ -132,11 +137,16 @@ export default function PsychologicalHooks() {
               >
                 <div className="flex items-start space-x-4">
                   {/* Фото Александра */}
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-blue-400 text-2xl sm:text-3xl">👨‍💻</span>
+                  <div className="w-24 h-32 sm:w-28 sm:h-36 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="text-center space-y-2">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mx-auto">
+                        <span className="text-white text-lg sm:text-xl">📷</span>
+                      </div>
+                      <p className="text-xs text-white/80">Фото</p>
+                    </div>
                   </div>
                   
-                  <div className="space-y-3 flex-1">
+                  <div className="space-y-3 flex-1 w-[85%]">
                     <div>
                       <h4 className="text-lg sm:text-xl font-medium text-white mb-1">
                         Александр

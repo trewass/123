@@ -60,19 +60,13 @@ export default function ProjectDemoPage() {
   }
 
   const handleOrderProject = () => {
-    // Открываем модальное окно контактов
-    const contactModal = document.getElementById('contact-modal')
-    if (contactModal) {
-      contactModal.style.display = 'flex'
-    }
+    // Открываем модальное окно контактов через событие
+    window.dispatchEvent(new CustomEvent('openContactModal'))
   }
 
   const handleContact = () => {
-    // Открываем модальное окно контактов
-    const contactModal = document.getElementById('contact-modal')
-    if (contactModal) {
-      contactModal.style.display = 'flex'
-    }
+    // Открываем модальное окно контактов через событие
+    window.dispatchEvent(new CustomEvent('openContactModal'))
   }
 
   return (

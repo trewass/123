@@ -5,9 +5,10 @@ import Navbar from '@/components/Navbar'
 import HeroSection from '@/components/HeroSection'
 import PsychologicalHooks from '@/components/PsychologicalHooks'
 import ExamplesSection from '@/components/ExamplesSection'
-import CaseStudiesSection from '@/components/CaseStudiesSection'
+import RealCasesSection from '@/components/RealCasesSection'
 import PricingSection from '@/components/PricingSection'
 import FAQSection from '@/components/FAQSection'
+import ReadySchemesSection from '@/components/ReadySchemesSection'
 import Footer from '@/components/Footer'
 import ContactModal from '@/components/ContactModal'
 
@@ -20,14 +21,14 @@ export default function Home() {
       <HeroSection onOpenModal={() => setIsModalOpen(true)} />
       <PsychologicalHooks />
       <ExamplesSection />
-      <CaseStudiesSection />
+      <RealCasesSection />
       <PricingSection onOpenModal={() => setIsModalOpen(true)} />
       <FAQSection onOpenModal={() => setIsModalOpen(true)} />
+      <ReadySchemesSection onOpenModal={() => setIsModalOpen(true)} />
       <Footer onOpenModal={() => setIsModalOpen(true)} />
-      
-      <ContactModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </main>
   )

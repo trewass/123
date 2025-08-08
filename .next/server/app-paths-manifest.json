@@ -1,6 +1,7 @@
 {
+  "/not-found": "app/not-found.js",
+  "/case/page": "app/case/page.js",
   "/page": "app/page.js",
-  "/project/[id]/page": "app/project/[id]/page.js",
-  "/project-preview/page": "app/project-preview/page.js",
+  "/media/page": "app/media/page.js",
   "/case/[id]/page": "app/case/[id]/page.js"
 }

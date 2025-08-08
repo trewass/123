@@ -1,76 +1,144 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Image as ImageIcon } from 'lucide-react'
 import Link from 'next/link'
-import ProjectsGallery from '@/components/ProjectsGallery'
 
-const projects = [
+const allProjects = [
   {
-    id: 'demo',
-    title: 'Кухня в современном стиле',
+    id: 'kitchen-moscow',
+    title: 'Кухня в Москве',
+    subtitle: 'Современная кухня с продуманной эргономикой',
+    area: '12 м²',
     location: 'Москва',
     year: '2024',
-    type: 'Жилой проект',
-    description: 'Проект современной кухни с точным планированием всех подключений и мебели. План учитывает расположение техники, освещения и сантехники для максимального удобства использования.',
-    thumbnail: '/images/kitchen-preview.jpg',
-    imageCount: 14,
-    videoCount: 1
+    description: 'Проект современной кухни с точным планированием всех подключений и мебели.',
+    images: [
+      { id: 1, alt: 'План розеток' },
+      { id: 2, alt: '3D визуализация кухни' },
+      { id: 3, alt: 'Детали мебели' },
+      { id: 4, alt: 'Готовая кухня' }
+    ]
   },
   {
-    id: 'timur-bakhchisaray',
-    title: 'Тимур Бахчисарай',
-    location: 'Бахчисарай',
+    id: 'bathroom-sochi',
+    title: 'Ванная в Сочи',
+    subtitle: 'Премиальная ванная комната',
+    area: '8 м²',
+    location: 'Сочи',
     year: '2024',
-    type: 'Жилой проект',
-    description: 'Проект кухни в стиле минимализм с акцентом на функциональность и эргономику. Особое внимание уделено организации рабочего пространства.',
-    thumbnail: '/images/timur-preview.jpg',
-    imageCount: 8,
-    videoCount: 1
+    description: 'Роскошная ванная комната с панорамным видом на море.',
+    images: [
+      { id: 1, alt: 'План ванной комнаты' },
+      { id: 2, alt: '3D визуализация' },
+      { id: 3, alt: 'Детали отделки' },
+      { id: 4, alt: 'Готовая ванная комната' }
+    ]
   },
   {
-    id: 'modern-kitchen',
-    title: 'Современная кухня-столовая',
+    id: 'bedroom-ekb',
+    title: 'Спальня в Екатеринбурге',
+    subtitle: 'Минималистичная спальня',
+    area: '16 м²',
+    location: 'Екатеринбург',
+    year: '2024',
+    description: 'Современная спальня в стиле минимализм с встроенной гардеробной.',
+    images: [
+      { id: 1, alt: 'План спальни' },
+      { id: 2, alt: '3D визуализация спальни' },
+      { id: 3, alt: 'Гардеробная система' },
+      { id: 4, alt: 'Готовая спальня' }
+    ]
+  },
+  {
+    id: 'kids-room-kazan',
+    title: 'Детская в Казани',
+    subtitle: 'Многофункциональная детская',
+    area: '14 м²',
+    location: 'Казань',
+    year: '2024',
+    description: 'Детская комната для растущего ребенка с трансформируемой мебелью.',
+    images: [
+      { id: 1, alt: 'План детской комнаты' },
+      { id: 2, alt: '3D визуализация детской' },
+      { id: 3, alt: 'Игровая зона' },
+      { id: 4, alt: 'Готовая детская комната' }
+    ]
+  },
+  {
+    id: 'living-room-spb',
+    title: 'Гостиная в СПб',
+    subtitle: 'Современная гостиная',
+    area: '20 м²',
     location: 'Санкт-Петербург',
     year: '2024',
-    type: 'Жилой проект',
-    description: 'Интеграция кухни и столовой в единое пространство с продуманной системой освещения и эргономичным расположением мебели.',
-    thumbnail: '/images/modern-kitchen-preview.jpg',
-    imageCount: 12,
-    videoCount: 0
+    description: 'Просторная гостиная с зонированием и многофункциональной мебелью.',
+    images: [
+      { id: 1, alt: 'План гостиной' },
+      { id: 2, alt: '3D визуализация гостиной' },
+      { id: 3, alt: 'Зона отдыха' },
+      { id: 4, alt: 'Готовая гостиная' }
+    ]
   },
   {
-    id: 'classic-interior',
-    title: 'Классический интерьер',
-    location: 'Казань',
-    year: '2023',
-    type: 'Жилой проект',
-    description: 'Классический стиль с современными технологиями. Традиционные материалы в сочетании с инновационными решениями.',
-    thumbnail: '/images/classic-preview.jpg',
-    imageCount: 10,
-    videoCount: 1
+    id: 'office-novosibirsk',
+    title: 'Офис в Новосибирске',
+    subtitle: 'Современный офис',
+    area: '45 м²',
+    location: 'Новосибирск',
+    year: '2024',
+    description: 'Функциональный офис с продуманной системой хранения и рабочими зонами.',
+    images: [
+      { id: 1, alt: 'План офиса' },
+      { id: 2, alt: '3D визуализация офиса' },
+      { id: 3, alt: 'Рабочие зоны' },
+      { id: 4, alt: 'Готовый офис' }
+    ]
   },
   {
-    id: 'minimalist-design',
-    title: 'Минималистичный дизайн',
+    id: 'kitchen-ekb',
+    title: 'Кухня в Екатеринбурге',
+    subtitle: 'Классическая кухня',
+    area: '15 м²',
     location: 'Екатеринбург',
-    year: '2023',
-    type: 'Жилой проект',
-    description: 'Минимализм в чистом виде с акцентом на функциональность и простоту форм. Максимальное использование пространства.',
-    thumbnail: '/images/minimalist-preview.jpg',
-    imageCount: 9,
-    videoCount: 0
+    year: '2024',
+    description: 'Классическая кухня с современными технологиями и эргономичным планированием.',
+    images: [
+      { id: 1, alt: 'План кухни' },
+      { id: 2, alt: '3D визуализация кухни' },
+      { id: 3, alt: 'Детали мебели' },
+      { id: 4, alt: 'Готовая кухня' }
+    ]
   },
   {
-    id: 'luxury-kitchen',
-    title: 'Люксовая кухня',
-    location: 'Сочи',
-    year: '2023',
-    type: 'Жилой проект',
-    description: 'Премиум-дизайн с использованием дорогих материалов и эксклюзивной техники. Внимание к каждой детали.',
-    thumbnail: '/images/luxury-preview.jpg',
-    imageCount: 15,
-    videoCount: 2
+    id: 'bathroom-moscow',
+    title: 'Ванная в Москве',
+    subtitle: 'Современная ванная',
+    area: '6 м²',
+    location: 'Москва',
+    year: '2024',
+    description: 'Компактная ванная комната с максимальным использованием пространства.',
+    images: [
+      { id: 1, alt: 'План ванной комнаты' },
+      { id: 2, alt: '3D визуализация' },
+      { id: 3, alt: 'Детали отделки' },
+      { id: 4, alt: 'Готовая ванная комната' }
+    ]
+  },
+  {
+    id: 'bedroom-kazan',
+    title: 'Спальня в Казани',
+    subtitle: 'Уютная спальня',
+    area: '18 м²',
+    location: 'Казань',
+    year: '2024',
+    description: 'Уютная спальня с гардеробной и продуманной системой освещения.',
+    images: [
+      { id: 1, alt: 'План спальни' },
+      { id: 2, alt: '3D визуализация спальни' },
+      { id: 3, alt: 'Гардеробная система' },
+      { id: 4, alt: 'Готовая спальня' }
+    ]
   }
 ]
 
@@ -105,50 +173,115 @@ export default function ProjectsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-tight mb-4 sm:mb-6">
-            Наши <span className="gradient-text">проекты</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6">
+            Все <span className="gradient-text">проекты</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto">
-            Примеры выполненных работ с детальными планами и рендерами
+          <p className="text-lg sm:text-xl text-neutral-400 max-w-3xl mx-auto">
+            Изучите наши проекты и посмотрите, как мы создаем функциональные пространства
           </p>
         </motion.div>
 
-        {/* Галерея проектов */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <ProjectsGallery projects={projects} />
-        </motion.div>
+        {/* Сетка проектов */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {allProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+              className="group"
+            >
+              <Link href={`/project/${project.id}`} className="block">
+                <div className="bg-background-surface/30 border border-neutral-800 rounded-2xl p-4 sm:p-6 backdrop-blur-sm hover:bg-background-surface/50 transition-all duration-300 hover:scale-105 group-hover:border-accent-500/30">
+                  {/* Изображение проекта */}
+                  <div className="relative aspect-video mb-4 sm:mb-6 rounded-xl overflow-hidden bg-gradient-to-br from-accent-500/20 to-accent-600/20">
+                    <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center">
+                      <div className="text-center space-y-2">
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mx-auto">
+                          <ImageIcon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                        </div>
+                        <p className="text-sm text-white/80">Фото проект</p>
+                      </div>
+                    </div>
+                    
+                    {/* Иконка внешней ссылки */}
+                    <div className="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ExternalLink className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
 
-        {/* Дополнительная информация */}
+                  {/* Информация о проекте */}
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-lg sm:text-xl font-medium text-neutral-200 mb-1 group-hover:text-accent-400 transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm sm:text-base text-neutral-400 mb-3">
+                        {project.subtitle}
+                      </p>
+                    </div>
+
+                    {/* Метаданные проекта */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="px-3 py-1 bg-accent-500/20 border border-accent-500/30 rounded-full text-xs text-accent-400">
+                        {project.area}
+                      </span>
+                      <span className="px-3 py-1 bg-neutral-800/50 border border-neutral-700 rounded-full text-xs text-neutral-300">
+                        {project.location}
+                      </span>
+                      <span className="px-3 py-1 bg-neutral-800/50 border border-neutral-700 rounded-full text-xs text-neutral-300">
+                        {project.year}
+                      </span>
+                    </div>
+
+                    {/* Краткое описание */}
+                    <p className="text-sm text-neutral-300 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Информация о фото */}
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="text-xs text-neutral-500">
+                        {project.images.length} фото проекта
+                      </span>
+                      <div className="flex items-center space-x-1 text-accent-400 group-hover:text-accent-300 transition-colors">
+                        <span className="text-sm font-medium">Смотреть проект</span>
+                        <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA секция */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-16 sm:mt-20"
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="text-center mt-16 sm:mt-20"
         >
           <div className="bg-background-surface/30 border border-neutral-800 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
-            <div className="text-center space-y-4">
-              <h2 className="text-2xl sm:text-3xl font-medium text-neutral-200">
-                Хотите заказать похожий проект?
-              </h2>
-              <p className="text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto">
-                Мы разработаем индивидуальный план для вашего пространства с учетом всех ваших пожеланий и особенностей помещения.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                <Link href="/" className="btn-primary text-sm sm:text-base px-6 py-3">
-                  Заказать проект
-                </Link>
-                <Link href="/" className="btn-secondary text-sm sm:text-base px-6 py-3">
-                  Связаться с нами
-                </Link>
-              </div>
-            </div>
+            <h3 className="text-xl sm:text-2xl font-medium text-neutral-200 mb-4">
+              Нужен похожий проект?
+            </h3>
+            <p className="text-neutral-400 mb-6 max-w-2xl mx-auto">
+              Создадим индивидуальный проект с учетом всех ваших пожеланий и особенностей помещения.
+            </p>
+            <button 
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent('openContactModal'))
+              }}
+              className="btn-primary inline-flex items-center space-x-2"
+            >
+              <span>Заказать проект</span>
+              <ExternalLink className="w-4 h-4" />
+            </button>
           </div>
         </motion.div>
       </div>

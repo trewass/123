@@ -67,6 +67,14 @@ export default function Footer({ onOpenModal }: FooterProps) {
               </li>
               <li>
                 <Link 
+                  href="/case" 
+                  className="text-neutral-300 hover:text-white transition-colors text-xs sm:text-sm"
+                >
+                  Реальные кейсы
+                </Link>
+              </li>
+              <li>
+                <Link 
                   href="/media" 
                   className="text-neutral-300 hover:text-white transition-colors text-xs sm:text-sm"
                 >

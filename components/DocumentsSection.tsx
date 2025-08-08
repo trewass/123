@@ -1,182 +1,151 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { FileText, Download, Eye } from 'lucide-react'
+import { FileText, ArrowRight, Download, Eye } from 'lucide-react'
+import Link from 'next/link'
 
-interface DocumentFile {
-  name: string
-  path: string
-  size?: number
-  type: string
-  webPath: string
-  pages?: number
+interface DocumentsSectionProps {
+  onOpenModal?: () => void
 }
 
-export default function DocumentsSection() {
-  const [documents, setDocuments] = useState<DocumentFile[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  // Загрузка технической документации
-  useEffect(() => {
-    const fetchDocuments = async () => {
-      try {
-        setLoading(true)
-        // Здесь можно добавить API для технической документации
-        // Пока используем заглушку
-        setDocuments([
-          {
-            name: 'Технические условия',
-            path: '/documents/tech-conditions.pdf',
-            size: 1024 * 1024, // 1MB
-            type: 'application/pdf',
-            webPath: '/documents/tech-conditions.pdf',
-            pages: 15
-          },
-          {
-            name: 'Стандарты качества',
-            path: '/documents/quality-standards.pdf',
-            size: 2 * 1024 * 1024, // 2MB
-            type: 'application/pdf',
-            webPath: '/documents/quality-standards.pdf',
-            pages: 25
-          },
-          {
-            name: 'Монтажные инструкции',
-            path: '/documents/installation-guide.pdf',
-            size: 1.5 * 1024 * 1024, // 1.5MB
-            type: 'application/pdf',
-            webPath: '/documents/installation-guide.pdf',
-            pages: 20
-          }
-        ])
-      } catch (err) {
-        setError('Ошибка загрузки документов')
-        console.error('Error fetching documents:', err)
-      } finally {
-        setLoading(false)
-      }
+export default function DocumentsSection({ onOpenModal }: DocumentsSectionProps) {
+  const documents = [
+    {
+      name: 'Технические условия',
+      description: 'Подробные технические условия для всех типов проектов',
+      icon: '📋',
+      count: 15
+    },
+    {
+      name: 'Стандарты качества',
+      description: 'Стандарты качества и нормы для производства мебели',
+      icon: '⭐',
+      count: 25
+    },
+    {
+      name: 'Монтажные инструкции',
+      description: 'Пошаговые инструкции по монтажу и установке',
+      icon: '🔧',
+      count: 20
     }
-
-    fetchDocuments()
-  }, [])
-
-  const handleDownload = (doc: DocumentFile) => {
-    const link = document.createElement('a')
-    link.href = doc.webPath
-    link.download = doc.name
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
-  const handlePreview = (doc: DocumentFile) => {
-    window.open(doc.webPath, '_blank')
-  }
+  ]
 
   return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h2 className="text-2xl font-medium text-white mb-2">
-          Техническая документация
-        </h2>
-        <p className="text-neutral-300">
-          Скачайте технические условия, стандарты качества и монтажные инструкции
-        </p>
-      </div>
+    <section className="section-padding bg-background-primary">
+      <div className="container-max px-4 sm:px-6 lg:px-8">
+        {/* Заголовок */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 sm:mb-6">
+            <span className="gradient-text">Техническая документация</span>
+          </h2>
+          <p className="text-lg sm:text-xl text-neutral-400 max-w-3xl mx-auto">
+            Полный комплект технической документации для вашего проекта
+          </p>
+        </motion.div>
 
-      {/* Состояние загрузки */}
-      {loading && (
-        <div className="text-center py-12">
-          <div className="w-8 h-8 border-2 border-accent-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-neutral-300">Загрузка документов...</p>
-        </div>
-      )}
-
-      {/* Состояние ошибки */}
-      {error && (
-        <div className="text-center py-12">
-          <div className="w-16 h-16 bg-red-500/20 border border-red-500/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <span className="text-red-500 text-2xl">⚠️</span>
-          </div>
-          <p className="text-red-400 mb-2">Ошибка загрузки</p>
-          <p className="text-neutral-400 text-sm">{error}</p>
-        </div>
-      )}
-
-      {/* Сетка документов */}
-      {!loading && !error && (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Превью документов */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {documents.map((doc, index) => (
             <motion.div
               key={doc.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card group hover:border-accent-500/50 transition-all duration-300"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-background-surface/30 border border-neutral-800 rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden group hover:border-accent-500/50 transition-all duration-300"
             >
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-accent-500/20 border border-accent-500/30 rounded-lg flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-accent-500" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-medium truncate">{doc.name}</h3>
-                  <div className="flex items-center space-x-4 text-sm text-neutral-400">
-                    <span>PDF</span>
-                    {doc.size && (
-                      <span>{(doc.size / 1024 / 1024).toFixed(1)} MB</span>
-                    )}
-                    {doc.pages && (
-                      <span>{doc.pages} стр.</span>
-                    )}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-accent-500/10 rounded-full blur-2xl group-hover:bg-accent-500/20 transition-all duration-300" />
+              <div className="relative z-10">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-accent-500/20 border border-accent-500/30 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">{doc.icon}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium text-neutral-200 mb-1">
+                      {doc.name}
+                    </h3>
+                    <p className="text-sm text-neutral-400">
+                      {doc.count} документов
+                    </p>
                   </div>
                 </div>
-                <div className="flex space-x-1">
-                  <button 
-                    onClick={() => handlePreview(doc)}
-                    className="p-1 text-neutral-400 hover:text-accent-400 transition-colors"
-                  >
-                    <Eye className="w-4 h-4" />
-                  </button>
-                  <button 
-                    onClick={() => handleDownload(doc)}
-                    className="p-1 text-neutral-400 hover:text-accent-400 transition-colors"
-                  >
-                    <Download className="w-4 h-4" />
-                  </button>
+                <p className="text-sm text-neutral-300 mb-4 leading-relaxed">
+                  {doc.description}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-neutral-500">
+                    PDF • Доступно для скачивания
+                  </span>
+                  <div className="flex space-x-2">
+                    <button className="p-1 text-neutral-400 hover:text-accent-400 transition-colors">
+                      <Eye className="w-4 h-4" />
+                    </button>
+                    <button className="p-1 text-neutral-400 hover:text-accent-400 transition-colors">
+                      <Download className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-      )}
 
-      {/* Информационный блок */}
-      {!loading && !error && documents.length > 0 && (
+        {/* Кнопка перехода к полной документации */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-background-surface/50 border border-neutral-800 rounded-xl p-6"
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Link 
+            href="/documents"
+            className="btn-primary inline-flex items-center space-x-2 text-sm sm:text-base px-8 py-4"
+          >
+            <span>Открыть полную документацию</span>
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </motion.div>
+
+        {/* Информационный блок */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-12 bg-background-surface/30 border border-neutral-800 rounded-2xl p-6 sm:p-8 backdrop-blur-sm"
         >
           <div className="text-center space-y-4">
-            <h3 className="text-xl font-medium text-white">Техническая поддержка</h3>
-            <p className="text-neutral-300 text-sm">
+            <h3 className="text-xl sm:text-2xl font-medium text-neutral-200">
+              Техническая поддержка
+            </h3>
+            <p className="text-neutral-300 text-sm sm:text-base max-w-2xl mx-auto">
               Все документы соответствуют действующим стандартам и нормам. 
               При возникновении вопросов обращайтесь к нашим специалистам.
             </p>
-            <div className="flex justify-center space-x-4">
-              <button className="btn-secondary text-sm">
+            <div className="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+              <button 
+                onClick={onOpenModal}
+                className="btn-secondary text-sm sm:text-base"
+              >
                 Получить консультацию
               </button>
-              <button className="btn-primary text-sm">
+              <button 
+                onClick={onOpenModal}
+                className="btn-primary text-sm sm:text-base"
+              >
                 Заказать звонок
               </button>
             </div>
           </div>
         </motion.div>
-      )}
-    </div>
+      </div>
+    </section>
   )
 } 
