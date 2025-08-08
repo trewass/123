@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import { ArrowLeft, ExternalLink, Image as ImageIcon } from 'lucide-react'
 import Link from 'next/link'
+import { useState } from 'react'
+import ContactModal from '@/components/ContactModal'
 
 const allProjects = [
   {
@@ -143,6 +145,12 @@ const allProjects = [
 ]
 
 export default function ProjectsPage() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
+
+  const handleOrderProject = () => {
+    setIsContactModalOpen(true)
+  }
+
   return (
     <div className="min-h-screen bg-background-primary">
       {/* Фоновый градиент */}
@@ -274,9 +282,7 @@ export default function ProjectsPage() {
               Создадим индивидуальный проект с учетом всех ваших пожеланий и особенностей помещения.
             </p>
             <button 
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent('openContactModal'))
-              }}
+              onClick={handleOrderProject}
               className="btn-primary inline-flex items-center space-x-2"
             >
               <span>Заказать проект</span>
@@ -285,6 +291,14 @@ export default function ProjectsPage() {
           </div>
         </motion.div>
       </div>
+
+      {/* Модальное окно контактов */}
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)}
+        title="Заказать проект"
+        description="Оставьте контакты и мы свяжемся с вами для обсуждения вашего проекта"
+      />
     </div>
   )
 }

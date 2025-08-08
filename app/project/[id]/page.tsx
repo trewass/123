@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ExternalLink, Play, X, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import ContactModal from '@/components/ContactModal'
 
 // Данные проектов
 const projectsData = {
@@ -210,6 +211,7 @@ const projectsData = {
 export default function ProjectPage({ params }: { params: { id: string } }) {
   const [selectedImage, setSelectedImage] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
 
   const project = projectsData[params.id as keyof typeof projectsData]
 
@@ -241,6 +243,10 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
   const handleNext = () => {
     setSelectedImage((prev) => (prev === project.images.length - 1 ? 0 : prev + 1))
+  }
+
+  const handleOrderProject = () => {
+    setIsContactModalOpen(true)
   }
 
   return (
@@ -339,9 +345,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             {/* Кнопка заказа */}
             <div className="space-y-3">
               <button 
-                onClick={() => {
-                  window.dispatchEvent(new CustomEvent('openContactModal'))
-                }}
+                onClick={handleOrderProject}
                 className="btn-primary w-full text-sm sm:text-base px-6 py-3 flex items-center justify-center space-x-2 hover:scale-105 transition-transform"
               >
                 <span>Заказать похожий проект</span>
@@ -502,6 +506,14 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Модальное окно контактов */}
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)}
+        title="Заказать похожий проект"
+        description="Оставьте контакты и мы свяжемся с вами для обсуждения вашего проекта"
+      />
     </div>
   )
 }
