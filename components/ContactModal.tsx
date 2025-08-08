@@ -28,14 +28,37 @@ export default function ContactModal({ isOpen, onClose, title = "Получит�
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Имитация отправки формы
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    
-    // Здесь будет реальная отправка данных в CRM
-    console.log('Form submitted:', formData)
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: '', // Пока не используем email
+          message: '', // Пока не используем сообщение
+          source: 'website',
+          page: window.location.pathname
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setIsSubmitted(true)
+        console.log('Заявка успешно отправлена:', result)
+      } else {
+        throw new Error(result.message || 'Ошибка отправки')
+      }
+      
+    } catch (error) {
+      console.error('Ошибка отправки заявки:', error)
+      alert('Ошибка отправки заявки. Попробуйте позже.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
