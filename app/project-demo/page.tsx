@@ -1,13 +1,14 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, ExternalLink, Play, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import ContactModal from '@/components/ContactModal'
 
 export default function ProjectDemoPage() {
   const [selectedImage, setSelectedImage] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
 
   const projectImages = [
     { id: 1, type: 'image', src: '/images/plan-rosets.jpg', alt: 'План розеток' },
@@ -60,13 +61,11 @@ export default function ProjectDemoPage() {
   }
 
   const handleOrderProject = () => {
-    // Открываем модальное окно контактов через событие
-    window.dispatchEvent(new CustomEvent('openContactModal'))
+    setIsContactModalOpen(true)
   }
 
   const handleContact = () => {
-    // Открываем модальное окно контактов через событие
-    window.dispatchEvent(new CustomEvent('openContactModal'))
+    setIsContactModalOpen(true)
   }
 
   return (
@@ -80,10 +79,7 @@ export default function ProjectDemoPage() {
 
       <div className="container-max relative z-10 px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Навигация */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+        <div
           className="mb-8 sm:mb-12"
         >
           <Link 
@@ -93,14 +89,11 @@ export default function ProjectDemoPage() {
             <ArrowLeft className="w-5 h-5" />
             <span>Вернуться на главную</span>
           </Link>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Левая колонка - информация о проекте */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+          <div
             className="lg:col-span-1 space-y-6"
           >
             {/* Заголовок проекта */}
@@ -178,13 +171,10 @@ export default function ProjectDemoPage() {
                 <span>Связаться с нами</span>
               </button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Правая колонка - галерея */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <div
             className="lg:col-span-2 space-y-6"
           >
             {/* Главное изображение */}
@@ -225,11 +215,8 @@ export default function ProjectDemoPage() {
               </h3>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 sm:gap-4">
                 {projectImages.map((image, index) => (
-                  <motion.div
+                  <div
                     key={image.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-200 relative"
                     onClick={() => handleImageClick(index)}
                   >
@@ -250,7 +237,7 @@ export default function ProjectDemoPage() {
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -268,70 +255,70 @@ export default function ProjectDemoPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Модальное окно для просмотра изображений */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={handleModalClose}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={handleModalClose}
+        >
+          <div
+            className="relative max-w-4xl w-full max-h-[90vh] bg-background-surface/90 border border-neutral-800 rounded-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="relative max-w-4xl w-full max-h-[90vh] bg-background-surface/90 border border-neutral-800 rounded-2xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
+            {/* Кнопка закрытия */}
+            <button
+              onClick={handleModalClose}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
             >
-              {/* Кнопка закрытия */}
-              <button
-                onClick={handleModalClose}
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
-              >
-                <X className="w-5 h-5 text-white" />
-              </button>
+              <X className="w-5 h-5 text-white" />
+            </button>
 
-              {/* Навигационные кнопки */}
-              <button
-                onClick={handlePrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5 text-white" />
-              </button>
+            {/* Навигационные кнопки */}
+            <button
+              onClick={handlePrevious}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5 text-white" />
+            </button>
 
-              <button
-                onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
-              >
-                <ChevronRight className="w-5 h-5 text-white" />
-              </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+            >
+              <ChevronRight className="w-5 h-5 text-white" />
+            </button>
 
-              {/* Изображение */}
-              <div className="aspect-video bg-gradient-to-br from-accent-500/20 to-accent-600/20 flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm">
-                    <span className="text-white text-6xl sm:text-7xl">📋</span>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-xl sm:text-2xl text-white font-medium">
-                      {projectImages[selectedImage].alt}
-                    </p>
-                    <p className="text-sm sm:text-base text-white/80">
-                      {selectedImage + 1} из {projectImages.length}
-                    </p>
-                  </div>
+            {/* Изображение */}
+            <div className="aspect-video bg-gradient-to-br from-accent-500/20 to-accent-600/20 flex items-center justify-center">
+              <div className="text-center space-y-4">
+                <div className="w-32 h-32 sm:w-40 sm:h-40 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm">
+                  <span className="text-white text-6xl sm:text-7xl">📋</span>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-xl sm:text-2xl text-white font-medium">
+                    {projectImages[selectedImage].alt}
+                  </p>
+                  <p className="text-sm sm:text-base text-white/80">
+                    {selectedImage + 1} из {projectImages.length}
+                  </p>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Модальное окно контактов */}
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)}
+        title="Заказать проект"
+        description="Оставьте контакты и мы свяжемся с вами для обсуждения вашего проекта"
+      />
     </div>
   )
 }

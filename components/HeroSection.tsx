@@ -88,7 +88,7 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative mt-6 lg:mt-0"
           >
-            <Link href="/project/demo" className="block">
+            <Link href="/project-demo" className="block">
               <div className="bg-background-surface/50 border border-neutral-800 rounded-2xl p-4 sm:p-6 lg:p-8 backdrop-blur-sm hover:bg-background-surface/70 transition-all duration-300 group">
                 <div className="space-y-4 sm:space-y-6">
                   <div className="text-center space-y-2">
