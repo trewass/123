@@ -20,7 +20,7 @@ export async function GET(
     const isMobile = /Mobile|Android|iPhone|iPad/.test(userAgent)
     
     // Возвращаем PDF с правильными заголовками
-    return new NextResponse(fileBuffer, {
+    return new NextResponse(fileBuffer as any, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': isMobile ? 'inline' : `inline; filename="${filename}"`,
