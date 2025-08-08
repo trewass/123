@@ -72,7 +72,7 @@ export default function PsychologicalHooks() {
           ))}
         </div>
 
-        {/* Дополнительный блок с визуализацией */}
+        {/* Блок с командой */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,27 +81,82 @@ export default function PsychologicalHooks() {
           className="mt-12 sm:mt-16"
         >
           <div className="bg-background-surface/50 border border-neutral-800 rounded-xl p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-center">
-              <div className="space-y-3 sm:space-y-4">
-                <h3 className="text-xl sm:text-2xl font-medium text-white">Визуализация производства</h3>
-                <p className="text-sm sm:text-base text-neutral-300">
-                  Фото: Ваше производство, готовая мебель
-                </p>
-                <p className="text-xs sm:text-sm text-neutral-400">
-                  Мы не дизайн-студия. Мы производство с 20-летним опытом. 
-                  Знаем, как делается мебель, поэтому можем спроектировать её правильно.
-                </p>
-              </div>
-              <div className="lg:col-span-2">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-neutral-600/20 to-neutral-700/20 rounded-lg border border-neutral-600/30 flex items-center justify-center">
-                    <span className="text-neutral-400 text-xs sm:text-sm">Производство</span>
+            <div className="text-center mb-8">
+              <h3 className="text-xl sm:text-2xl font-medium text-white mb-4">
+                Кто создаёт ваш проект
+              </h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              {/* Карточка Анастасии */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-background-surface/30 border border-neutral-700 rounded-xl p-6 backdrop-blur-sm"
+              >
+                <div className="flex items-start space-x-4">
+                  {/* Фото Анастасии */}
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/30 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-pink-400 text-2xl sm:text-3xl">👩‍💼</span>
                   </div>
-                  <div className="aspect-[4/3] bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-lg border border-accent-500/30 flex items-center justify-center">
-                    <span className="text-accent-400 text-xs sm:text-sm">Готовая мебель</span>
+                  
+                  <div className="space-y-3 flex-1">
+                    <div>
+                      <h4 className="text-lg sm:text-xl font-medium text-white mb-1">
+                        Анастасия
+                      </h4>
+                      <p className="text-sm sm:text-base text-accent-400 font-medium">
+                        Дизайнер, проектировщик инженерки
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <p className="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                        Отвечаю за премиальные проекты: электрика, вода, фартук, высоты и всё, что касается точности планов.
+                      </p>
+                      <p className="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                        Эргономика — моё всё. Обожаю, когда проект не только красивый, но и максимально удобный в повседневной жизни.
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
+
+              {/* Карточка Александра */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="bg-background-surface/30 border border-neutral-700 rounded-xl p-6 backdrop-blur-sm"
+              >
+                <div className="flex items-start space-x-4">
+                  {/* Фото Александра */}
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-400 text-2xl sm:text-3xl">👨‍💻</span>
+                  </div>
+                  
+                  <div className="space-y-3 flex-1">
+                    <div>
+                      <h4 className="text-lg sm:text-xl font-medium text-white mb-1">
+                        Александр
+                      </h4>
+                      <p className="text-sm sm:text-base text-accent-400 font-medium">
+                        Дизайнер мебели и визуализация
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <p className="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                        Делаю всё исключительно на совесть: от привязки техники до 3D-визуала, чтобы «на картинке» и в реальности совпадало до миллиметра.
+                      </p>
+                      <p className="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                        Рендер для меня — это как искусство: передать атмосферу и характер будущей кухни.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>

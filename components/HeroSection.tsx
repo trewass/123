@@ -1,27 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, Gift, Upload, Image as ImageIcon } from 'lucide-react'
-import { useState } from 'react'
+import { ArrowRight, CheckCircle, Gift, ExternalLink } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
 
 interface HeroSectionProps {
   onOpenModal?: () => void
 }
 
 export default function HeroSection({ onOpenModal }: HeroSectionProps) {
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null)
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        setUploadedImage(e.target?.result as string)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-
   return (
     <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-20 sm:pt-24 md:pt-28">
       {/* Фоновый градиент */}
@@ -93,67 +81,60 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
             </button>
           </motion.div>
 
-          {/* Правая колонка - загрузка проекта */}
+          {/* Правая колонка - превью проекта */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative mt-6 lg:mt-0"
           >
-            <div className="bg-background-surface/50 border border-neutral-800 rounded-2xl p-4 sm:p-6 lg:p-8 backdrop-blur-sm">
-              <div className="space-y-4 sm:space-y-6">
-                <div className="text-center space-y-2">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-neutral-200">
-                    Загрузите фото проекта
-                  </h3>
-                  <p className="text-sm sm:text-base text-neutral-400">
-                    Получите план + рендер «было/стало»
-                  </p>
-                </div>
+            <Link href="/project/demo" className="block">
+              <div className="bg-background-surface/50 border border-neutral-800 rounded-2xl p-4 sm:p-6 lg:p-8 backdrop-blur-sm hover:bg-background-surface/70 transition-all duration-300 group">
+                <div className="space-y-4 sm:space-y-6">
+                  <div className="text-center space-y-2">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-neutral-200 group-hover:text-accent-400 transition-colors">
+                      Пример готового проекта
+                    </h3>
+                    <p className="text-sm sm:text-base text-neutral-400">
+                      План розеток + рендер кухни
+                    </p>
+                  </div>
 
-                {uploadedImage ? (
-                  <div className="space-y-4">
-                    <div className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-xl overflow-hidden">
-                      <img 
-                        src={uploadedImage} 
-                        alt="Загруженный проект" 
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="text-center space-y-2">
-                      <p className="text-sm sm:text-base text-neutral-300 font-medium">
-                        Реальный план + рендер
-                      </p>
-                      <p className="text-xs sm:text-sm text-neutral-400">
-                        Коллаж «было/стало»
-                      </p>
+                  <div className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-xl overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
+                    {/* Превью проекта */}
+                    <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center relative">
+                      <div className="text-center space-y-4">
+                        <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm">
+                          <span className="text-white text-2xl sm:text-3xl">🏠</span>
+                        </div>
+                        <div className="space-y-2">
+                          <p className="text-sm sm:text-base text-white font-medium">
+                            Кухня в современном стиле
+                          </p>
+                          <p className="text-xs sm:text-sm text-white/80">
+                            План розеток + 3D рендер
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Иконка внешней ссылки */}
+                      <div className="absolute top-3 right-3 w-8 h-8 bg-accent-500/20 border border-accent-500/30 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <ExternalLink className="w-4 h-4 text-accent-400" />
+                      </div>
                     </div>
                   </div>
-                ) : (
-                  <div className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-xl flex items-center justify-center border-2 border-dashed border-accent-500/30">
-                    <label className="cursor-pointer flex flex-col items-center space-y-3 text-center">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-accent-500/20 border border-accent-500/30 rounded-full flex items-center justify-center">
-                        <Upload className="w-8 h-8 sm:w-10 sm:h-10 text-accent-500" />
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-sm sm:text-base text-neutral-300 font-medium">
-                          Нажмите для загрузки
-                        </p>
-                        <p className="text-xs sm:text-sm text-neutral-400">
-                          JPG, PNG до 5MB
-                        </p>
-                      </div>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                      />
-                    </label>
+
+                  <div className="text-center space-y-2">
+                    <p className="text-sm sm:text-base text-neutral-300 font-medium">
+                      Нажмите для просмотра
+                    </p>
+                    <p className="text-xs sm:text-sm text-neutral-400">
+                      Подробности проекта
+                    </p>
                   </div>
-                )}
+                </div>
               </div>
-            </div>
+            </Link>
           </motion.div>
         </div>
       </div>
