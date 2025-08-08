@@ -34,6 +34,42 @@ const nextConfig = {
           },
         ],
       },
+      // Заголовки для PDF файлов
+      {
+        source: '/documents/:path*',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/pdf',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/videos/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ]
   },
   // Оптимизация сборки
@@ -67,6 +103,16 @@ const nextConfig = {
       {
         source: '/api/media/:path*',
         destination: '/api/media/:path*',
+      },
+    ]
+  },
+  // Настройки для статических файлов
+  async redirects() {
+    return [
+      {
+        source: '/documents/:path*',
+        destination: '/documents/:path*',
+        permanent: false,
       },
     ]
   },
