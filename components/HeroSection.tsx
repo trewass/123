@@ -28,33 +28,31 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
           >
             <div className="space-y-4 sm:space-y-6">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight">
-                Точные схемы <span className="gradient-text">электрики</span>, воды и подключения техники для ремонта без переделок
+                План розеток, воды и техники для ремонта <span className="gradient-text">без переделок</span>
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-neutral-300 max-w-3xl leading-relaxed">
-                Разработаем технический план для строителей: где будут розетки, свет, выводы воды, бытовая техника и мебель.
-                <br />
-                <span className="font-medium">20 лет опыта в проектировании и производстве мебели — всё подгоняем до миллиметра.</span>
+                Сразу укажем строителям, где розетки, свет, фартук и техника — всё по мебели, без сюрпризов.
               </p>
             </div>
 
             {/* 3 ключевые выгоды */}
             <div className="space-y-4 sm:space-y-5">
               <div className="flex items-start space-x-4">
-                <MapPin className="w-6 h-6 sm:w-7 sm:h-7 text-accent-500 mt-1 flex-shrink-0" />
+                <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 text-accent-500 mt-1 flex-shrink-0" />
                 <span className="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed">
-                  Разработаем полный план розеток, света, сантехники и техники с привязкой к мебели.
+                  Все подключения на своих местах.
                 </span>
               </div>
               <div className="flex items-start space-x-4">
-                <ChefHat className="w-6 h-6 sm:w-7 sm:h-7 text-accent-500 mt-1 flex-shrink-0" />
+                <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 text-accent-500 mt-1 flex-shrink-0" />
                 <span className="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed">
-                  Определим высоту и расположение кухонного фартука, розеток на нём и всех подключений.
+                  Фартук и розетки на нужной высоте.
                 </span>
               </div>
               <div className="flex items-start space-x-4">
-                <Wrench className="w-6 h-6 sm:w-7 sm:h-7 text-accent-500 mt-1 flex-shrink-0" />
+                <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 text-accent-500 mt-1 flex-shrink-0" />
                 <span className="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed">
-                  Избавим от переделок, срыва сроков и лишних расходов на ремонте.
+                  Экономия времени и денег на переделках.
                 </span>
               </div>
             </div>
@@ -65,11 +63,8 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
                 <Gift className="w-6 h-6 sm:w-7 sm:h-7 text-accent-500 mt-1 flex-shrink-0" />
                 <div>
                   <span className="text-base sm:text-lg md:text-xl text-neutral-200 font-medium">
-                    Дизайн мебели в подарок
+                    🎁 Дизайн мебели в подарок
                   </span>
-                  <p className="text-sm sm:text-base text-neutral-400 mt-1">
-                    Сразу увидите, как будет выглядеть ваш интерьер
-                  </p>
                 </div>
               </div>
             </div>
@@ -79,7 +74,7 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
               onClick={onOpenModal}
               className="btn-primary text-lg sm:text-xl md:text-2xl px-8 sm:px-10 py-4 sm:py-5 flex items-center space-x-3 w-full sm:w-auto justify-center font-medium"
             >
-              <span>Заказать схемы для ремонта</span>
+              <span>Заказать план для ремонта</span>
               <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7" />
             </button>
           </motion.div>
