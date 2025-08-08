@@ -15,17 +15,43 @@ export async function GET(
     // Читаем файл
     const fileBuffer = await readFile(filePath)
     
+    // Проверяем User-Agent для мобильных устройств
+    const userAgent = request.headers.get('user-agent') || ''
+    const isMobile = /Mobile|Android|iPhone|iPad/.test(userAgent)
+    
     // Возвращаем PDF с правильными заголовками
     return new NextResponse(fileBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `inline; filename="${filename}"`,
+        'Content-Disposition': isMobile ? 'inline' : `inline; filename="${filename}"`,
         'Cache-Control': 'public, max-age=31536000, immutable',
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
       },
     })
   } catch (error) {
     console.error('Error serving PDF:', error)
-    return new NextResponse('PDF not found', { status: 404 })
+    return new NextResponse('PDF not found', { 
+      status: 404,
+      headers: {
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-cache',
+      }
+    })
   }
+}
+
+// Добавляем поддержку OPTIONS для CORS
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  })
 } 

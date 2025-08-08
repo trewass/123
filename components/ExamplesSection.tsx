@@ -296,30 +296,37 @@ export default function ExamplesSection() {
 
         {/* Модальное окно для просмотра PDF */}
         {showPdfModal && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-background-surface border border-neutral-800 rounded-xl w-full max-w-6xl h-[90vh] relative"
+              className="bg-background-surface border border-neutral-800 rounded-xl w-full h-full sm:h-[90vh] sm:max-w-6xl relative flex flex-col"
             >
-              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-neutral-800">
-                <h3 className="text-lg sm:text-xl font-medium text-white">
+              <div className="flex items-center justify-between p-3 sm:p-4 lg:p-6 border-b border-neutral-800 flex-shrink-0">
+                <h3 className="text-base sm:text-lg lg:text-xl font-medium text-white">
                   Просмотр PDF документа
                 </h3>
                 <button
                   onClick={closePdfModal}
-                  className="text-neutral-400 hover:text-white transition-colors"
+                  className="text-neutral-400 hover:text-white transition-colors p-2"
                 >
                   ✕
                 </button>
               </div>
-              <div className="p-4 sm:p-6 h-full overflow-auto">
-                <iframe
-                  src={pdfUrl}
-                  className="w-full h-full rounded-lg"
-                  title="PDF Viewer"
-                />
+              <div className="flex-1 p-2 sm:p-4 lg:p-6 overflow-hidden">
+                <div className="w-full h-full rounded-lg overflow-hidden bg-white">
+                  <iframe
+                    src={pdfUrl}
+                    className="w-full h-full"
+                    title="PDF Viewer"
+                    style={{ 
+                      minHeight: '100%',
+                      border: 'none',
+                      borderRadius: '8px'
+                    }}
+                  />
+                </div>
               </div>
             </motion.div>
           </div>

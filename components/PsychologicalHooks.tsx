@@ -33,7 +33,7 @@ const hooks = [
 export default function PsychologicalHooks() {
   return (
     <section className="section-padding bg-background-primary">
-      <div className="container-max">
+      <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export default function PsychologicalHooks() {
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 sm:mb-6">
-            Психологические <span className="gradient-text">крючки</span>
+            Наш <span className="gradient-text">подход</span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto px-4">
             Объясняем нашу стратегию и почему она работает
