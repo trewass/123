@@ -13,7 +13,7 @@ interface ContactFormData {
 
 // Настройка транспорта для отправки почты
 const transporter = nodemailer.createTransporter({
-  service: 'gmail',
+  service: 'yandex',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS

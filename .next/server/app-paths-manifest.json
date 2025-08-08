@@ -1,7 +1,7 @@
 {
-  "/case/page": "app/case/page.js",
+  "/media/page": "app/media/page.js",
   "/page": "app/page.js",
+  "/case/page": "app/case/page.js",
   "/project-demo/page": "app/project-demo/page.js",
-  "/project/[id]/page": "app/project/[id]/page.js",
-  "/media/page": "app/media/page.js"
+  "/project/[id]/page": "app/project/[id]/page.js"
 }
