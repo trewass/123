@@ -97,24 +97,24 @@ export default function ExamplesSection() {
   }
 
   return (
-    <section id="examples" className="py-20 bg-background-secondary">
-      <div className="container-max">
+    <section id="examples" className="py-12 sm:py-16 lg:py-20 bg-background-secondary">
+      <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-light mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 sm:mb-6">
             Примеры <span className="gradient-text">техпроектов</span>
           </h2>
-          <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto px-4">
             Изучите реальные проекты с полной технической документацией и схемами коммуникаций
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {exampleProjects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -132,34 +132,34 @@ export default function ExamplesSection() {
                     alt={project.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-neutral-600/20 to-neutral-700/20 flex items-center justify-center">
-                    <FileText className="w-16 h-16 text-neutral-400" />
+                    <FileText className="w-12 h-12 sm:w-16 sm:h-16 text-neutral-400" />
                   </div>
                 )}
 
                 {/* Overlay с кнопками */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-2 sm:space-x-3">
                   <button
                     onClick={() => handleView(project.pdfPath)}
-                    className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-lg hover:bg-white/30 transition-colors"
+                    className="bg-white/20 backdrop-blur-sm text-white p-2 sm:p-3 rounded-lg hover:bg-white/30 transition-colors"
                     title="Просмотреть"
                   >
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                   <button
                     onClick={() => handleDownload(project.pdfPath, project.title)}
-                    className="bg-accent-500 text-white p-3 rounded-lg hover:bg-accent-600 transition-colors"
+                    className="bg-accent-500 text-white p-2 sm:p-3 rounded-lg hover:bg-accent-600 transition-colors"
                     title="Скачать"
                   >
-                    <Download className="w-5 h-5" />
+                    <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
 
                 {/* Бейдж типа проекта */}
-                <div className="absolute top-3 left-3">
+                <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
                   <span className="bg-accent-500 text-white text-xs px-2 py-1 rounded-full">
                     {project.room}
                   </span>
@@ -167,16 +167,16 @@ export default function ExamplesSection() {
               </div>
 
               {/* Информация о проекте */}
-              <div className="p-6">
-                <h3 className="text-xl font-medium text-white mb-2 group-hover:text-accent-400 transition-colors">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-medium text-white mb-2 group-hover:text-accent-400 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-neutral-300 text-sm mb-4">
+                <p className="text-neutral-300 text-xs sm:text-sm mb-3 sm:mb-4">
                   {project.description}
                 </p>
 
                 {/* Особенности проекта */}
-                <div className="space-y-2 mb-4">
+                <div className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
                   {project.features.slice(0, 3).map((feature, idx) => (
                     <div key={idx} className="flex items-center space-x-2">
                       <span className="text-accent-500 text-xs">✓</span>
@@ -188,10 +188,10 @@ export default function ExamplesSection() {
                 {/* Кнопка подробнее */}
                 <button
                   onClick={() => handleProjectClick(project)}
-                  className="flex items-center space-x-2 text-accent-400 hover:text-accent-300 transition-colors text-sm font-medium"
+                  className="flex items-center space-x-2 text-accent-400 hover:text-accent-300 transition-colors text-xs sm:text-sm font-medium"
                 >
                   <span>Подробнее</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                 </button>
               </div>
             </motion.div>
@@ -207,9 +207,9 @@ export default function ExamplesSection() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="bg-background-surface border border-neutral-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <div className="p-6 border-b border-neutral-800">
+              <div className="p-4 sm:p-6 border-b border-neutral-800">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-2xl font-medium text-white">
+                  <h3 className="text-xl sm:text-2xl font-medium text-white">
                     {selectedProject.title}
                   </h3>
                   <button
@@ -221,8 +221,8 @@ export default function ExamplesSection() {
                 </div>
               </div>
 
-              <div className="p-6">
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="p-4 sm:p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                   {/* Превью */}
                   <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     {selectedProject.thumbnail ? (
@@ -235,37 +235,37 @@ export default function ExamplesSection() {
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-neutral-600/20 to-neutral-700/20 flex items-center justify-center">
-                        <FileText className="w-16 h-16 text-neutral-400" />
+                        <FileText className="w-12 h-12 sm:w-16 sm:h-16 text-neutral-400" />
                       </div>
                     )}
                   </div>
 
                   {/* Информация */}
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div>
-                      <h4 className="text-lg font-medium text-white mb-2">Описание</h4>
-                      <p className="text-neutral-300 text-sm">
+                      <h4 className="text-base sm:text-lg font-medium text-white mb-2">Описание</h4>
+                      <p className="text-neutral-300 text-xs sm:text-sm">
                         {selectedProject.description}
                       </p>
                     </div>
 
                     <div>
-                      <h4 className="text-lg font-medium text-white mb-2">Особенности</h4>
-                      <div className="grid grid-cols-1 gap-2">
+                      <h4 className="text-base sm:text-lg font-medium text-white mb-2">Особенности</h4>
+                      <div className="grid grid-cols-1 gap-1 sm:gap-2">
                         {selectedProject.features.map((feature, idx) => (
                           <div key={idx} className="flex items-center space-x-2">
-                            <span className="text-accent-500 text-sm">✓</span>
-                            <span className="text-neutral-300 text-sm">{feature}</span>
+                            <span className="text-accent-500 text-xs sm:text-sm">✓</span>
+                            <span className="text-neutral-300 text-xs sm:text-sm">{feature}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="flex space-x-2">
-                      <span className="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-xs">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="bg-neutral-800 text-neutral-300 px-2 sm:px-3 py-1 rounded-full text-xs">
                         {selectedProject.room}
                       </span>
-                      <span className="bg-neutral-800 text-neutral-300 px-3 py-1 rounded-full text-xs">
+                      <span className="bg-neutral-800 text-neutral-300 px-2 sm:px-3 py-1 rounded-full text-xs">
                         {selectedProject.area}
                       </span>
                     </div>
@@ -273,19 +273,19 @@ export default function ExamplesSection() {
                 </div>
 
                 {/* Кнопки действий */}
-                <div className="flex space-x-3">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                   <button
                     onClick={() => handleView(selectedProject.pdfPath)}
-                    className="flex items-center space-x-2 bg-accent-500 text-white px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors"
+                    className="flex items-center justify-center space-x-2 bg-accent-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
                   >
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>Просмотреть PDF</span>
                   </button>
                   <button
                     onClick={() => handleDownload(selectedProject.pdfPath, selectedProject.title)}
-                    className="flex items-center space-x-2 bg-background-primary border border-neutral-700 text-white px-6 py-3 rounded-lg hover:border-accent-500 transition-colors"
+                    className="flex items-center justify-center space-x-2 bg-background-primary border border-neutral-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:border-accent-500 transition-colors text-sm"
                   >
-                    <Download className="w-5 h-5" />
+                    <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                     <span>Скачать</span>
                   </button>
                 </div>
@@ -303,8 +303,8 @@ export default function ExamplesSection() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="bg-background-surface border border-neutral-800 rounded-xl w-full max-w-6xl h-[90vh] relative"
             >
-              <div className="flex items-center justify-between p-6 border-b border-neutral-800">
-                <h3 className="text-xl font-medium text-white">
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-neutral-800">
+                <h3 className="text-lg sm:text-xl font-medium text-white">
                   Просмотр PDF документа
                 </h3>
                 <button
@@ -314,7 +314,7 @@ export default function ExamplesSection() {
                   ✕
                 </button>
               </div>
-              <div className="p-6 h-full overflow-auto">
+              <div className="p-4 sm:p-6 h-full overflow-auto">
                 <iframe
                   src={pdfUrl}
                   className="w-full h-full rounded-lg"

@@ -58,23 +58,23 @@ export default function FAQSection({ onOpenModal }: FAQSectionProps) {
 
   return (
     <section id="faq" className="section-padding bg-background-secondary">
-      <div className="container-max">
+      <div className="container-max px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-light mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 sm:mb-6">
             Часто задаваемые <span className="gradient-text">вопросы</span>
           </h2>
-          <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto px-4">
             Ответы на популярные вопросы о наших услугах и процессе работы
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-4xl mx-auto space-y-3 sm:space-y-4">
           {faqItems.map((item, index) => (
             <motion.div
               key={index}
@@ -86,16 +86,16 @@ export default function FAQSection({ onOpenModal }: FAQSectionProps) {
             >
               <button
                 onClick={() => toggleItem(index)}
-                className="w-full flex items-center justify-between text-left space-x-4"
+                className="w-full flex items-center justify-between text-left space-x-3 sm:space-x-4"
               >
-                <h3 className="text-lg font-medium text-white pr-4">
+                <h3 className="text-base sm:text-lg font-medium text-white pr-2 sm:pr-4">
                   {item.question}
                 </h3>
                 <div className="flex-shrink-0">
                   {openItems.includes(index) ? (
-                    <ChevronUp className="w-5 h-5 text-neutral-400" />
+                    <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-neutral-400" />
+                    <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
                   )}
                 </div>
               </button>
@@ -106,9 +106,9 @@ export default function FAQSection({ onOpenModal }: FAQSectionProps) {
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="mt-4 pt-4 border-t border-neutral-800"
+                  className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-neutral-800"
                 >
-                  <p className="text-neutral-300 leading-relaxed">
+                  <p className="text-neutral-300 leading-relaxed text-sm sm:text-base">
                     {item.answer}
                   </p>
                 </motion.div>
@@ -122,25 +122,25 @@ export default function FAQSection({ onOpenModal }: FAQSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
-          className="mt-16"
+          className="mt-12 sm:mt-16"
         >
-          <div className="bg-background-surface/50 border border-neutral-800 rounded-xl p-8 text-center">
-            <h3 className="text-2xl font-medium text-white mb-4">
+          <div className="bg-background-surface/50 border border-neutral-800 rounded-xl p-4 sm:p-6 lg:p-8 text-center">
+            <h3 className="text-xl sm:text-2xl font-medium text-white mb-3 sm:mb-4">
               Остались вопросы?
             </h3>
-            <p className="text-neutral-300 mb-6">
+            <p className="text-neutral-300 mb-4 sm:mb-6 text-sm sm:text-base">
               Свяжитесь с нами для получения подробной консультации
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <button 
                 onClick={onOpenModal}
-                className="btn-primary"
+                className="btn-primary text-sm sm:text-base"
               >
                 Получить консультацию
               </button>
               <button 
                 onClick={onOpenModal}
-                className="btn-secondary"
+                className="btn-secondary text-sm sm:text-base"
               >
                 Заказать звонок
               </button>
