@@ -1,0 +1,4 @@
+# Настройки почты для отправки заявок
+EMAIL_USER=kyxni21.rf@yandex.ru
+EMAIL_PASS=mdriirlzqqfgjyax
+EMAIL_TO=kyxni21.rf@yandex.ru

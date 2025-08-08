@@ -1,0 +1,4 @@
+# Настройки почты для отправки заявок (Gmail)
+EMAIL_USER=rewas787@gmail.com
+EMAIL_PASS=ВАШ_ПАРОЛЬ_ПРИЛОЖЕНИЯ
+EMAIL_TO=rewas787@gmail.com

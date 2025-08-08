@@ -12,7 +12,7 @@ interface ContactFormData {
 }
 
 // Настройка транспорта для отправки почты
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   service: 'yandex',
   auth: {
     user: process.env.EMAIL_USER,
@@ -73,6 +73,15 @@ export async function POST(request: NextRequest) {
     }
 
     const emailInfo = getEmailInfo(data.page || '/')
+
+    // Проверяем настройки почты
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Ошибка: EMAIL_USER или EMAIL_PASS не настроены')
+      return NextResponse.json(
+        { success: false, message: 'Ошибка настройки почты' },
+        { status: 500 }
+      )
+    }
 
     // Формируем красивое HTML письмо
     const htmlContent = `
@@ -200,8 +209,15 @@ ${data.message ? `Сообщение: ${data.message}` : ''}
       text: textContent
     }
 
+    console.log('Отправка письма:', {
+      from: mailOptions.from,
+      to: mailOptions.to,
+      subject: mailOptions.subject
+    })
+
     // Отправляем письмо
-    await transporter.sendMail(mailOptions)
+    const result = await transporter.sendMail(mailOptions)
+    console.log('Письмо отправлено успешно:', result.messageId)
 
     return NextResponse.json({
       success: true,
@@ -211,10 +227,22 @@ ${data.message ? `Сообщение: ${data.message}` : ''}
   } catch (error) {
     console.error('Ошибка отправки заявки:', error)
     
+    // Возвращаем более информативную ошибку
+    let errorMessage = 'Ошибка отправки заявки. Попробуйте позже.'
+    
+    if (error && typeof error === 'object' && 'code' in error) {
+      if (error.code === 'EAUTH') {
+        errorMessage = 'Ошибка аутентификации почты. Проверьте настройки EMAIL_USER и EMAIL_PASS.'
+      } else if (error.code === 'ECONNECTION') {
+        errorMessage = 'Ошибка подключения к почтовому серверу.'
+      }
+    }
+    
     return NextResponse.json(
       { 
         success: false, 
-        message: 'Ошибка отправки заявки. Попробуйте позже.' 
+        message: errorMessage,
+        error: process.env.NODE_ENV === 'development' && error instanceof Error ? error.message : undefined
       },
       { status: 500 }
     )
