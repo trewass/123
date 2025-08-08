@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background-primary text-neutral-100 font-sans;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent-500 hover:bg-accent-600 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 hover:transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-background-primary;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border border-neutral-600 text-neutral-300 hover:border-neutral-400 hover:text-white font-medium px-6 py-3 rounded-lg transition-all duration-200;
+  }
+  
+  .card {
+    @apply bg-background-surface border border-neutral-800 rounded-xl p-6 transition-all duration-300 hover:border-neutral-700 hover:shadow-lg;
+  }
+  
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-400 to-accent-600 bg-clip-text text-transparent;
+  }
+  
+  .backdrop-blur-nav {
+    @apply backdrop-blur-md bg-background-primary/80 border-b border-neutral-800;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Стили для слайдера */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .slider::-webkit-slider-track {
+    background: #374151;
+    height: 4px;
+    border-radius: 2px;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #f59e0b;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-track {
+    background: #374151;
+    height: 4px;
+    border-radius: 2px;
+  }
+  
+  .slider::-moz-range-thumb {
+    background: #f59e0b;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+} 
