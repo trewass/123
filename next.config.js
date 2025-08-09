@@ -12,6 +12,15 @@ const nextConfig = {
     // Разрешенные форматы
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Добавляем внешние домены для изображений
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   // Настройки для статических файлов
   async headers() {

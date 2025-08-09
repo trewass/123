@@ -103,14 +103,17 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
                   <div className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-xl overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
                     {/* Превью проекта */}
                     <div className="w-full h-full relative">
-                      {/* Временный placeholder вместо изображения */}
-                      <div className="w-full h-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
-                        <div className="text-center text-white">
-                          <div className="text-4xl mb-2">🏠</div>
-                          <div className="text-sm font-medium">Пример проекта</div>
-                          <div className="text-xs opacity-70">План розеток + рендер</div>
-                        </div>
-                      </div>
+                      <img
+                        src="https://via.placeholder.com/400x400/667eea/ffffff?text=Пример+проекта"
+                        alt="Пример готового проекта - план розеток и рендер кухни"
+                        className="w-full h-full object-cover"
+                        onLoad={() => {
+                          console.log('✅ Внешнее изображение загружено');
+                        }}
+                        onError={(e) => {
+                          console.error('❌ Ошибка загрузки внешнего изображения:', e);
+                        }}
+                      />
                       
                       {/* Иконка внешней ссылки */}
                       <div className="absolute top-3 right-3 w-8 h-8 bg-accent-500/20 border border-accent-500/30 rounded-full flex items-center justify-center backdrop-blur-sm">
