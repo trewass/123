@@ -103,12 +103,10 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
                   <div className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-xl overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
                     {/* Превью проекта */}
                     <div className="w-full h-full relative">
-                      <Image
+                      <img
                         src="/images/Main.png"
                         alt="Пример готового проекта - план розеток и рендер кухни"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="w-full h-full object-cover"
                         onError={(e) => {
                           console.error('Ошибка загрузки изображения:', e);
                           // Fallback на другое изображение
