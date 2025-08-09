@@ -4,7 +4,7 @@ const nextConfig = {
     // appDir: true, // Удалено, так как это больше не нужно в Next.js 14
   },
   images: {
-    domains: ['localhost'],
+    // Убираем устаревшую настройку domains
     formats: ['image/webp', 'image/avif'],
     // Настройки для оптимизации изображений
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

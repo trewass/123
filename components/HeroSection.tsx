@@ -104,12 +104,17 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
                     {/* Превью проекта */}
                     <div className="w-full h-full relative">
                       <Image
-                        src="/images/main2.png"
+                        src="/images/Main.png"
                         alt="Пример готового проекта - план розеток и рендер кухни"
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        priority
+                        onError={(e) => {
+                          console.error('Ошибка загрузки изображения:', e);
+                          // Fallback на другое изображение
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/images/Kitchen_1.png';
+                        }}
                       />
                       
                       {/* Иконка внешней ссылки */}

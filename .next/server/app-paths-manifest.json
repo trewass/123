@@ -1,7 +1,1 @@
-{
-  "/page": "app/page.js",
-  "/project-demo/page": "app/project-demo/page.js",
-  "/project/[id]/page": "app/project/[id]/page.js",
-  "/case/[id]/page": "app/case/[id]/page.js",
-  "/case/page": "app/case/page.js"
-}
+{}
