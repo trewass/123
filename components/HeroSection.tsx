@@ -104,14 +104,17 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
                     {/* Превью проекта */}
                     <div className="w-full h-full relative">
                       <img
-                        src="https://via.placeholder.com/400x400/667eea/ffffff?text=Пример+проекта"
+                        src="/api/images/Main.png"
                         alt="Пример готового проекта - план розеток и рендер кухни"
                         className="w-full h-full object-cover"
                         onLoad={() => {
-                          console.log('✅ Внешнее изображение загружено');
+                          console.log('✅ Локальное изображение загружено через API');
                         }}
                         onError={(e) => {
-                          console.error('❌ Ошибка загрузки внешнего изображения:', e);
+                          console.error('❌ Ошибка загрузки локального изображения:', e);
+                          // Fallback на внешнее изображение
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://via.placeholder.com/400x400/667eea/ffffff?text=Пример+проекта';
                         }}
                       />
                       
