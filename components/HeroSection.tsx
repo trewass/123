@@ -104,7 +104,7 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
                     {/* Превью проекта */}
                     <div className="w-full h-full relative">
                       <Image
-                        src="/images/Main.png"
+                        src="/images/main2.png"
                         alt="Пример готового проекта - план розеток и рендер кухни"
                         fill
                         className="object-cover"
