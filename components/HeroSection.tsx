@@ -102,20 +102,15 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
 
                   <div className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-xl overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
                     {/* Превью проекта */}
-                    <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center relative">
-                      <div className="text-center space-y-4">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm">
-                          <span className="text-white text-2xl sm:text-3xl">🏠</span>
-                        </div>
-                        <div className="space-y-2">
-                          <p className="text-sm sm:text-base text-white font-medium">
-                            Кухня в современном стиле
-                          </p>
-                          <p className="text-xs sm:text-sm text-white/80">
-                            План розеток + 3D рендер
-                          </p>
-                        </div>
-                      </div>
+                    <div className="w-full h-full relative">
+                      <Image
+                        src="/images/Main.png"
+                        alt="Пример готового проекта - план розеток и рендер кухни"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority
+                      />
                       
                       {/* Иконка внешней ссылки */}
                       <div className="absolute top-3 right-3 w-8 h-8 bg-accent-500/20 border border-accent-500/30 rounded-full flex items-center justify-center backdrop-blur-sm">
