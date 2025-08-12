@@ -24,7 +24,8 @@ export async function GET(
       contentType = 'image/webp'
     }
     
-    return new NextResponse(imageBuffer, {
+    // NextResponse в некоторых окружениях ожидает BodyInit. Преобразуем Buffer в Uint8Array
+    return new Response(imageBuffer as unknown as Uint8Array, {
       headers: {
         'Content-Type': contentType,
         'Cache-Control': 'public, max-age=31536000, immutable',
