@@ -7,6 +7,22 @@ import Link from 'next/link'
 // Данные кейсов для главной страницы
 const casesData = [
   {
+    id: 'kitchen-example-project',
+    title: 'Кухня в ЖК Бригантина',
+    subtitle: 'Проект кухни в современном жилом комплексе',
+    location: 'Симферополь',
+    year: '2025',
+    area: '15 м²',
+    style: 'Современный',
+    type: 'Кухня',
+    shortDescription: 'Реальный проект кухни с детальной проработкой всех технических решений, планов и схем подключений. Включает детальную проработку электрики и розеток.',
+    rating: 5,
+    testimonial: 'Получили полный набор технических планов. Все четко, понятно и детально проработано!',
+    author: 'Анна М.',
+    image: '/images/Кухня/Проект. пример/Main.jpg',
+    thumbnail: '/images/Кухня/Проект. пример/Main.jpg'
+  },
+  {
     id: 'kitchen-moscow-family',
     title: 'Кухня для семьи в Москве',
     subtitle: 'Современная кухня с продуманной эргономикой',
@@ -88,21 +104,29 @@ export default function RealCasesSection() {
                 <div className="card hover:scale-105 transition-transform duration-300">
                   {/* Изображение кейса */}
                   <div className="relative aspect-video mb-6 rounded-xl overflow-hidden bg-gradient-to-br from-accent-500/20 to-accent-600/20">
-                    <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center">
-                      <div className="text-center space-y-4">
-                        <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm">
-                          <span className="text-white text-3xl sm:text-4xl">📋</span>
-                        </div>
-                        <div className="space-y-2">
-                          <p className="text-lg sm:text-xl text-white font-medium">
-                            {caseItem.type}
-                          </p>
-                          <p className="text-sm sm:text-base text-white/80">
-                            Нажмите для просмотра
-                          </p>
+                    {caseItem.thumbnail ? (
+                      <img 
+                        src={caseItem.thumbnail}
+                        alt={caseItem.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center">
+                        <div className="text-center space-y-4">
+                          <div className="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 border border-white/20 rounded-full flex items-center justify-center mx-auto backdrop-blur-sm">
+                            <span className="text-white text-3xl sm:text-4xl">📋</span>
+                          </div>
+                          <div className="space-y-2">
+                            <p className="text-lg sm:text-xl text-white font-medium">
+                              {caseItem.type}
+                            </p>
+                            <p className="text-sm sm:text-base text-white/80">
+                              Нажмите для просмотра
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
                     
                     {/* Иконка внешней ссылки */}
                     <div className="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

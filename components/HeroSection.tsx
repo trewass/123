@@ -88,43 +88,50 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative mt-6 lg:mt-0"
           >
-            <Link href="/project-demo" className="block">
+            <Link href="/project/kitchen-example-project" className="block">
               <div className="bg-background-surface/50 border border-neutral-800 rounded-2xl p-4 sm:p-6 lg:p-8 backdrop-blur-sm hover:bg-background-surface/70 transition-all duration-300 group">
                 <div className="space-y-4 sm:space-y-6">
                   <div className="text-center space-y-2">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-neutral-200 group-hover:text-accent-400 transition-colors">
-                      Пример готового проекта
+                      Кухня в ЖК Бригантина
                     </h3>
                     <p className="text-sm sm:text-base text-neutral-400">
-                      План розеток + рендер кухни
+                      Симферополь, 2025
                     </p>
                   </div>
 
                   <div className="aspect-square bg-gradient-to-br from-accent-500/20 to-accent-600/20 rounded-xl overflow-hidden relative group-hover:scale-105 transition-transform duration-300">
                     {/* Превью проекта */}
                     <div className="w-full h-full relative">
-                      {/* Красивый градиент с контентом */}
-                      <div className="w-full h-full bg-gradient-to-br from-blue-500/20 via-purple-600/20 to-accent-500/20 flex items-center justify-center">
-                        <div className="text-center text-white">
-                          <div className="text-4xl mb-2">🏠</div>
-                          <div className="text-sm font-medium">Пример проекта</div>
-                          <div className="text-xs opacity-70">План розеток + рендер</div>
-                        </div>
+                      {/* Реальное изображение кухни */}
+                      <img 
+                        src="/images/Кухня/Проект. пример/Main.jpg"
+                        alt="Пример готового проекта кухни"
+                        className="w-full h-full object-cover"
+                      />
+                      
+                      {/* Градиентная накладка для читаемости текста */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      
+                      {/* Текст поверх изображения */}
+                      <div className="absolute bottom-4 left-4 right-4 text-center text-white">
+                        <div className="text-sm font-medium mb-1">Реальный проект</div>
+                        <div className="text-xs opacity-90">План розеток + фото</div>
                       </div>
                       
                       {/* Иконка внешней ссылки */}
-                      <div className="absolute top-3 right-3 w-8 h-8 bg-accent-500/20 border border-accent-500/30 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <ExternalLink className="w-4 h-4 text-accent-400" />
+                      <div className="absolute top-3 right-3 w-8 h-8 bg-black/50 border border-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                        <ExternalLink className="w-4 h-4 text-white" />
                       </div>
                     </div>
                   </div>
 
                   <div className="text-center space-y-2">
                     <p className="text-sm sm:text-base text-neutral-300 font-medium">
-                      Нажмите для просмотра
+                      Посмотреть реальный проект
                     </p>
                     <p className="text-xs sm:text-sm text-neutral-400">
-                      Подробности проекта
+                      6 детальных планов кухни
                     </p>
                   </div>
                 </div>

@@ -8,6 +8,42 @@ import ContactModal from '@/components/ContactModal'
 
 const allProjects = [
   {
+    id: 'house-urozhaynoe',
+    title: 'Частный дом в Урожайном',
+    subtitle: 'Проект частного дома',
+    area: '150 м²',
+    location: 'с. Урожайное',
+    year: '2025',
+    description: 'Проект частного дома с точным планированием всех подключений и мебели. Указаны расположение выключателей и розеток, полностью спроектирована мебель. Все решения соответствуют чертежам.',
+    thumbnail: '/images/Большой проект. Пример/main.jpg',
+    images: [
+      { id: 1, alt: 'Главный вид проекта', src: '/images/Большой проект. Пример/main.jpg' },
+      { id: 2, alt: 'План — страница 2', src: '/images/Большой проект. Пример/Page2.jpg' },
+      { id: 3, alt: 'План — страница 3', src: '/images/Большой проект. Пример/Page3.jpg' },
+      { id: 4, alt: 'План — страница 4', src: '/images/Большой проект. Пример/Page4.jpg' },
+      { id: 5, alt: 'План — страница 5', src: '/images/Большой проект. Пример/Page5.jpg' },
+      { id: 6, alt: 'План — страница 6', src: '/images/Большой проект. Пример/Page6.jpg' }
+    ]
+  },
+  {
+    id: 'kitchen-example-project',
+    title: 'Кухня в ЖК Бригантина',
+    subtitle: 'Проект кухни в современном жилом комплексе',
+    area: '15 м²',
+    location: 'Симферополь',
+    year: '2025',
+    description: 'Реальный проект современной кухни с техническими планами и детальной проработкой всех элементов. Проект включает планировку размещения техники, систему освещения и все необходимые технические решения, в том числе и розетки.',
+    thumbnail: '/images/Кухня/Проект. пример/Main.jpg',
+    images: [
+      { id: 1, alt: 'Розетки план 1', src: '/images/Кухня/Проект. пример/Rpzetki1.jpg' },
+      { id: 2, alt: 'Розетки план 2', src: '/images/Кухня/Проект. пример/Rozetki2.jpg' },
+      { id: 3, alt: 'План фасадов', src: '/images/Кухня/Проект. пример/Plan_fasadov.jpg' },
+      { id: 4, alt: 'В разрезе', src: '/images/Кухня/Проект. пример/V_razreze.jpg' },
+      { id: 5, alt: 'Наполнение', src: '/images/Кухня/Проект. пример/Napolnenie.jpg' },
+      { id: 6, alt: 'Спецификация', src: '/images/Кухня/Проект. пример/Specific.jpg' }
+    ]
+  },
+  {
     id: 'kitchen-moscow',
     title: 'Кухня в Москве',
     subtitle: 'Современная кухня с продуманной эргономикой',
@@ -206,14 +242,22 @@ export default function ProjectsPage() {
                 <div className="bg-background-surface/30 border border-neutral-800 rounded-2xl p-4 sm:p-6 backdrop-blur-sm hover:bg-background-surface/50 transition-all duration-300 hover:scale-105 group-hover:border-accent-500/30">
                   {/* Изображение проекта */}
                   <div className="relative aspect-video mb-4 sm:mb-6 rounded-xl overflow-hidden bg-gradient-to-br from-accent-500/20 to-accent-600/20">
-                    <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center">
-                      <div className="text-center space-y-2">
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mx-auto">
-                          <ImageIcon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                    {project.thumbnail ? (
+                      <img 
+                        src={project.thumbnail}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center">
+                        <div className="text-center space-y-2">
+                          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 border border-white/30 rounded-full flex items-center justify-center mx-auto">
+                            <ImageIcon className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                          </div>
+                          <p className="text-sm text-white/80">Фото проект</p>
                         </div>
-                        <p className="text-sm text-white/80">Фото проект</p>
                       </div>
-                    </div>
+                    )}
                     
                     {/* Иконка внешней ссылки */}
                     <div className="absolute top-3 right-3 w-8 h-8 bg-black/50 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
