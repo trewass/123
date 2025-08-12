@@ -1,21 +1,18 @@
-import { NextRequest, NextResponse } from 'next/server'
-// Используем Node.js runtime, так как читаем файл с диска
-export const runtime = 'nodejs'
+import { NextRequest } from 'next/server'
 import { readFile } from 'fs/promises'
 import path from 'path'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { filename: string } }
+  { params }: { params: { path: string[] } }
 ) {
   try {
-    const filename = params.filename
-    const imagePath = path.join(process.cwd(), 'public', 'images', filename)
+    const imagePath = path.join(process.cwd(), 'public', 'images', ...params.path)
     
     const imageBuffer = await readFile(imagePath)
     
     // Определяем MIME тип на основе расширения файла
-    const ext = path.extname(filename).toLowerCase()
+    const ext = path.extname(params.path[params.path.length - 1]).toLowerCase()
     let contentType = 'image/png' // по умолчанию
     
     if (ext === '.jpg' || ext === '.jpeg') {
@@ -26,8 +23,8 @@ export async function GET(
       contentType = 'image/webp'
     }
     
-    // Просто возвращаем Response с Buffer напрямую, без Blob
-    return new Response(imageBuffer, {
+    // Используем новый Response с Uint8Array - гарантированно работает на Vercel
+    return new Response(new Uint8Array(imageBuffer), {
       headers: {
         'Content-Type': contentType,
         'Cache-Control': 'public, max-age=31536000, immutable',
@@ -35,9 +32,12 @@ export async function GET(
     })
   } catch (error) {
     console.error('Ошибка загрузки изображения:', error)
-    return NextResponse.json(
-      { error: 'Изображение не найдено' },
-      { status: 404 }
+    return new Response(
+      JSON.stringify({ error: 'Изображение не найдено' }),
+      { 
+        status: 404,
+        headers: { 'Content-Type': 'application/json' }
+      }
     )
   }
 }
