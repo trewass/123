@@ -26,10 +26,8 @@ export async function GET(
       contentType = 'image/webp'
     }
     
-    // Преобразуем Buffer в ArrayBuffer для совместимости с BlobPart
-    const arrayBuffer = imageBuffer.buffer.slice(imageBuffer.byteOffset, imageBuffer.byteOffset + imageBuffer.byteLength)
-    const blob = new Blob([arrayBuffer], { type: contentType })
-    return new Response(blob, {
+    // Просто возвращаем Response с Buffer напрямую, без Blob
+    return new Response(imageBuffer, {
       headers: {
         'Content-Type': contentType,
         'Cache-Control': 'public, max-age=31536000, immutable',
