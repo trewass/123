@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+// Используем Node.js runtime, так как читаем файл с диска
+export const runtime = 'nodejs'
 import { readFile } from 'fs/promises'
 import path from 'path'
 
@@ -24,8 +26,9 @@ export async function GET(
       contentType = 'image/webp'
     }
     
-    // NextResponse в некоторых окружениях ожидает BodyInit. Преобразуем Buffer в Uint8Array
-    return new Response(imageBuffer as unknown as Uint8Array, {
+    // Формируем Blob, который гарантированно совместим с BodyInit
+    const blob = new Blob([imageBuffer], { type: contentType })
+    return new Response(blob, {
       headers: {
         'Content-Type': contentType,
         'Cache-Control': 'public, max-age=31536000, immutable',
