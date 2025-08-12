@@ -26,8 +26,9 @@ export async function GET(
       contentType = 'image/webp'
     }
     
-    // Формируем Blob, который гарантированно совместим с BodyInit
-    const blob = new Blob([imageBuffer], { type: contentType })
+    // Преобразуем Buffer в ArrayBuffer для совместимости с BlobPart
+    const arrayBuffer = imageBuffer.buffer.slice(imageBuffer.byteOffset, imageBuffer.byteOffset + imageBuffer.byteLength)
+    const blob = new Blob([arrayBuffer], { type: contentType })
     return new Response(blob, {
       headers: {
         'Content-Type': contentType,
