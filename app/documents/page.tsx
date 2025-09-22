@@ -5,6 +5,11 @@ import { ArrowLeft, Download, Eye, FileText, Star, CheckCircle, AlertTriangle, I
 import Link from 'next/link'
 import { useState } from 'react'
 
+type DocumentSection =
+  | { type: 'text'; title: string; content: string }
+  | { type: 'list'; title: string; items: string[] }
+  | { type: 'code'; title: string; code: string }
+
 interface DocumentFile {
   id: string
   name: string
@@ -18,6 +23,7 @@ interface DocumentFile {
   icon: string
   features: string[]
   requirements: string[]
+  sections?: DocumentSection[]
 }
 
 export default function DocumentsPage() {
@@ -26,6 +32,179 @@ export default function DocumentsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const documents: DocumentFile[] = [
+    {
+      id: 'kilocode-fear-cards-prompt',
+      name: 'PROMPT для KiloCode — «Fear Cards (CBT)»',
+      description:
+        'Полный системный и пользовательский промпт для генерации приложения карточек страхов с чек-листами, прогрессом и цветовой индикацией по уровню страха.',
+      category: 'ai',
+      size: 'Текст',
+      pages: 12,
+      lastUpdated: '18.02.2025',
+      downloads: 428,
+      rating: 5,
+      icon: '🤖',
+      features: [
+        'Обновлённый сценарий КПТ-терапевта с оценкой страха 0–10',
+        'Интеграция Whisper и GPT-5 с JSON-валидацией через Zod',
+        'Полная логика прогресса чек-листа и цветовых статусов карточки',
+        'Детализированные требования к UI Expo React Native приложения'
+      ],
+      requirements: [
+        'Expo (React Native, TypeScript, Expo Router)',
+        'OpenAI API Key, сохраняемый через Expo SecureStore',
+        'Локальное хранилище SQLite (expo-sqlite) и Zustand'
+      ],
+      sections: [
+        {
+          type: 'text',
+          title: 'Роль и цель',
+          content:
+            'Ты выступаешь как старший разработчик и архитектор. Нужно собрать мобильное приложение «Карточки страхов»: пользователь диктует ситуацию, получает транскрибацию и анализ, чек-лист шагов и поддержку, а на главном экране отображаются ключевые показатели карточки.'
+        },
+        {
+          type: 'list',
+          title: 'Технический стек',
+          items: [
+            'Expo + React Native + TypeScript + Expo Router',
+            'UI на React Native Paper с сеткой карточек в две колонки',
+            'Состояние через Zustand и локальное хранилище SQLite (expo-sqlite)',
+            'Аудиозапись через expo-av и файлы в expo-file-system',
+            'Безопасность ключей через Expo SecureStore и EAS Secrets',
+            'OpenAI Whisper для транскрибации и GPT-5 для анализа (response_format: json_object)'
+          ]
+        },
+        {
+          type: 'code',
+          title: 'Системный промпт',
+          code: `Ты — цифровой терапевт на принципах когнитивно-поведенческой терапии (КПТ).
+Отвечай дружелюбно, по-человечески и конкретно, без морали и диагнозов.
+Всегда возвращай строго валидный JSON по заданной схеме.
+Задача: на основе краткого описания страховой ситуации:
+1) дать summary (2–3 предложения),
+2) определить категорию,
+3) выделить когнитивные искажения,
+4) оценить интенсивность страха по шкале 0–10 (целое число),
+5) выдать краткое описание (<= 80 символов) для карточки,
+6) предложить 4–7 микро-шагов (чек-лист) на сегодня/ближайшие дни,
+7) предложить 2–4 альтернативные мысли (reframes),
+8) сформулировать поддерживающее сообщение в тоне «по-дружески, но уважительно».
+Если ситуация указывает на риски самоповреждения/агрессии — выставь safety.flag=true и порекомендуй обратиться к специалисту.`
+        },
+        {
+          type: 'code',
+          title: 'JSON-схема ответа',
+          code: `{
+  "summary": "string",
+  "category": "social_anxiety | performance_anxiety | health_anxiety | financial_fear | fear_of_rejection | fear_of_failure | general_anxiety",
+  "distortions": ["catastrophizing", "mind_reading", "fortune_telling", "overgeneralization", "all_or_nothing", "personalization", "should_statements", "emotional_reasoning", "labeling"],
+  "severity_0_10": 0,
+  "short_description": "string",
+  "checklist": [
+    { "title": "string", "instructions": "string", "expected_minutes": 10, "difficulty_1_3": 1 }
+  ],
+  "reframes": ["string", "string"],
+  "supportive_message": "string",
+  "safety": { "flag": false, "note": "string" }
+}`
+        },
+        {
+          type: 'code',
+          title: 'Пользовательский промпт',
+          code: `Текст ситуации (RU):
+"""
+{TRANSCRIPT_OR_TEXT}
+"""
+
+Верни строго JSON по схеме выше.
+"short_description" сделай до 80 символов, по существу (например: "Увижу знакомых — придётся разговаривать").
+"checklist": 4–7 очень маленьких шагов (10–30 минут, низкая сложность), первый шаг — самый простой.
+"severity_0_10": целое число, 0=нет страха, 10=максимальный.
+Тон поддержки: тёплый, уважительный, по-дружески.`
+        },
+        {
+          type: 'text',
+          title: 'Логика прогресса и цвета',
+          content:
+            'Прогресс карточки рассчитывается как округлённое значение (completedSteps / totalSteps) * 100. Цвет карточки на главном экране зависит от текущего severity: 0–3 — зелёный, 4–6 — янтарный, 7–10 — красный. На карточке отображаются название, краткое описание, бейдж Severity N/10, ProgressBar и подпись X / Y шагов.'
+        },
+        {
+          type: 'list',
+          title: 'Главный экран карточек',
+          items: [
+            'Две колонки карточек среднего размера с Paper Card и скруглением 2xl',
+            'Верхняя часть карточки: название, short_description и чип с Severity',
+            'Цвет чипа и карточки соответствует уровню страха',
+            'ProgressBar по ширине карточки + подпись X / Y шагов и дата последнего обновления',
+            'Тап по карточке открывает экран деталей'
+          ]
+        },
+        {
+          type: 'list',
+          title: 'Экран «Создать карточку»',
+          items: [
+            'Обязательное поле названия, опциональные теги и краткое описание',
+            'Блок записи аудио: Записать, Остановить, Прослушать, Отправить на транскрибацию',
+            'После транскрибации показывать текст и кнопку запуска анализа ИИ',
+            'Результат анализа заполняет severity, категорию, искажения, short_description, чек-лист, summary, reframes и поддержку'
+          ]
+        },
+        {
+          type: 'code',
+          title: 'Типы данных и прогресс',
+          code: `type Card = {
+  id: string
+  title: string
+  shortDescription: string
+  severity: number
+  checklist: Step[]
+  progressCached: number
+}
+
+type Step = {
+  id: string
+  title: string
+  instructions?: string
+  expected_minutes: number
+  difficulty_1_3: number
+  doneDates: string[]
+}`
+        },
+        {
+          type: 'list',
+          title: 'Работа с API-ключом и безопасностью',
+          items: [
+            'Экран «Настройки» с полем ввода ключа и сохранением через SecureStore',
+            'При отсутствии ключа кнопки ИИ недоступны и отображается тост с подсказкой',
+            'В продакшене ключи передаются через EAS Secrets, хардкода быть не должно'
+          ]
+        },
+        {
+          type: 'list',
+          title: 'MVP задачи',
+          items: [
+            'Стартовый проект Expo с настройками Router, Paper, Zustand и SQLite',
+            'Главный экран карточек с моками, цветами и прогрессом',
+            'Экран создания карточки с записью аудио и отправкой на Whisper',
+            'Интеграция GPT-5 с response_format: json_object и строгим парсингом (zod)',
+            'Экран деталей с summary, категориями, искажениями, чек-листом, рефреймами и поддержкой',
+            'Пересчёт прогресса с мгновенным обновлением карточек',
+            'Экран «Настройки» для ввода и сохранения API-ключа'
+          ]
+        },
+        {
+          type: 'list',
+          title: 'Критерии приёмки',
+          items: [
+            'Карточка на главном экране показывает название, short_description, цвет, прогресс и счётчик шагов',
+            'Цвет автоматически меняется при обновлении severity',
+            'Прогресс обновляется сразу после отметки чек-листа',
+            'Ответы ИИ обязаны быть валидным JSON, ошибки сопровождаются тостом и опцией повторить',
+            'API-ключ нигде не хардкодится'
+          ]
+        }
+      ]
+    },
     {
       id: 'tech-conditions-2024',
       name: 'Технические условия 2024',
@@ -162,6 +341,7 @@ export default function DocumentsPage() {
 
   const categories = [
     { id: 'all', name: 'Все документы', icon: '📁' },
+    { id: 'ai', name: 'AI & Автоматизация', icon: '🤖' },
     { id: 'technical', name: 'Технические', icon: '📋' },
     { id: 'quality', name: 'Качество', icon: '⭐' },
     { id: 'installation', name: 'Монтаж', icon: '🔧' },
@@ -407,6 +587,46 @@ export default function DocumentsPage() {
                 <p className="text-neutral-300 mb-6 leading-relaxed">
                   {selectedDocument.description}
                 </p>
+
+                {selectedDocument.sections && selectedDocument.sections.length > 0 && (
+                  <div className="space-y-6 mb-8">
+                    {selectedDocument.sections.map((section, index) => {
+                      if (section.type === 'text') {
+                        return (
+                          <div key={index} className="space-y-3">
+                            <h3 className="text-lg font-medium text-neutral-200">{section.title}</h3>
+                            <p className="text-sm text-neutral-300 leading-relaxed whitespace-pre-line">{section.content}</p>
+                          </div>
+                        )
+                      }
+                      if (section.type === 'list') {
+                        return (
+                          <div key={index} className="space-y-3">
+                            <h3 className="text-lg font-medium text-neutral-200">{section.title}</h3>
+                            <ul className="space-y-2 list-disc list-inside text-sm text-neutral-300">
+                              {section.items.map((item, itemIndex) => (
+                                <li key={itemIndex} className="leading-relaxed">
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )
+                      }
+                      if (section.type === 'code') {
+                        return (
+                          <div key={index} className="space-y-3">
+                            <h3 className="text-lg font-medium text-neutral-200">{section.title}</h3>
+                            <pre className="text-sm text-neutral-200 bg-black/40 border border-neutral-700 rounded-xl p-4 overflow-x-auto whitespace-pre-wrap">
+                              {section.code}
+                            </pre>
+                          </div>
+                        )
+                      }
+                      return null
+                    })}
+                  </div>
+                )}
 
                 {/* Основные возможности */}
                 <div className="mb-6">
