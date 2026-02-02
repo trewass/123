@@ -66,93 +66,81 @@ const exampleProjects = [
     ]
   },
   {
-    id: 'kitchen-moscow',
-    title: 'Кухня в Москве',
-    subtitle: 'Современная кухня с продуманной эргономикой',
+    id: 'yuliya-suvorova',
+    title: 'Кухня для Юлии Суворовой',
+    subtitle: 'Техпроект кухни с планировкой электрики',
     area: '12 м²',
-    location: 'Москва',
-    year: '2024',
-    description: 'Проект современной кухни с точным планированием всех подключений и мебели.',
+    location: 'Симферополь',
+    year: '2025',
+    description: 'Техпроект кухни с планировкой электрики и схемами коммуникаций. Включает схемы электрики, проект с размерами и планировку мебели.',
+    thumbnail: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/0.webp',
     images: [
-      { id: 1, alt: 'План розеток' },
-      { id: 2, alt: '3D визуализация кухни' },
-      { id: 3, alt: 'Детали мебели' },
-      { id: 4, alt: 'Готовая кухня' }
+      { id: 1, alt: 'Проект 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/0.webp' },
+      { id: 2, alt: 'Проект 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/1.webp' },
+      { id: 3, alt: 'Проект 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/2.webp' },
+      { id: 4, alt: 'Схемы 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/3.webp' },
+      { id: 5, alt: 'Схемы 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/4.webp' }
     ]
   },
   {
-    id: 'bathroom-sochi',
-    title: 'Ванная в Сочи',
-    subtitle: 'Премиальная ванная комната',
-    area: '8 м²',
-    location: 'Сочи',
-    year: '2024',
-    description: 'Роскошная ванная комната с панорамным видом на море.',
-    images: [
-      { id: 1, alt: 'План ванной комнаты' },
-      { id: 2, alt: '3D визуализация' },
-      { id: 3, alt: 'Детали отделки' },
-      { id: 4, alt: 'Готовая ванная комната' }
-    ]
-  },
-  {
-    id: 'bedroom-ekb',
-    title: 'Спальня в Екатеринбурге',
-    subtitle: 'Минималистичная спальня',
-    area: '16 м²',
-    location: 'Екатеринбург',
-    year: '2024',
-    description: 'Современная спальня в стиле минимализм с встроенной гардеробной.',
-    images: [
-      { id: 1, alt: 'План спальни' },
-      { id: 2, alt: '3D визуализация спальни' },
-      { id: 3, alt: 'Гардеробная система' },
-      { id: 4, alt: 'Готовая спальня' }
-    ]
-  },
-  {
-    id: 'kids-room-kazan',
-    title: 'Детская в Казани',
-    subtitle: 'Многофункциональная детская',
-    area: '14 м²',
-    location: 'Казань',
-    year: '2024',
-    description: 'Детская комната для растущего ребенка с трансформируемой мебелью.',
-    images: [
-      { id: 1, alt: 'План детской комнаты' },
-      { id: 2, alt: '3D визуализация детской' },
-      { id: 3, alt: 'Игровая зона' },
-      { id: 4, alt: 'Готовая детская комната' }
-    ]
-  },
-  {
-    id: 'living-room-spb',
-    title: 'Гостиная в СПб',
-    subtitle: 'Современная гостиная',
-    area: '20 м²',
-    location: 'Санкт-Петербург',
-    year: '2024',
-    description: 'Просторная гостиная с зонированием и многофункциональной мебелью.',
-    images: [
-      { id: 1, alt: 'План гостиной' },
-      { id: 2, alt: '3D визуализация гостиной' },
-      { id: 3, alt: 'Зона отдыха' },
-      { id: 4, alt: 'Готовая гостиная' }
-    ]
-  },
-  {
-    id: 'office-novosibirsk',
-    title: 'Офис в Новосибирске',
-    subtitle: 'Современный офис',
+    id: 'gennadii-brigantina',
+    title: 'Проект Бригантина',
+    subtitle: 'Комплексный техпроект квартиры',
     area: '45 м²',
-    location: 'Новосибирск',
-    year: '2024',
-    description: 'Функциональный офис с продуманной системой хранения и рабочими зонами.',
+    location: 'Симферополь',
+    year: '2025',
+    description: 'Комплексный техпроект квартиры с размерами и схемами коммуникаций. Включает схемы электрики, проект с размерами и планировку помещений.',
+    thumbnail: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/0.webp',
     images: [
-      { id: 1, alt: 'План офиса' },
-      { id: 2, alt: '3D визуализация офиса' },
-      { id: 3, alt: 'Рабочие зоны' },
-      { id: 4, alt: 'Готовый офис' }
+      { id: 1, alt: 'Проект с размерами 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/0.webp' },
+      { id: 2, alt: 'Проект с размерами 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/1.webp' },
+      { id: 3, alt: 'Проект с размерами 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/2.webp' },
+      { id: 4, alt: 'Проект с размерами 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/3.webp' },
+      { id: 5, alt: 'Проект с размерами 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/4.webp' },
+      { id: 6, alt: 'Схемы 6', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/5.webp' },
+      { id: 7, alt: 'Схемы 7', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/6.webp' }
+    ]
+  },
+  {
+    id: 'enver-mirnoe',
+    title: 'Квартира в Мирном',
+    subtitle: 'Полный техпроект квартиры с визуализацией',
+    area: '65 м²',
+    location: 'с. Мирное',
+    year: '2025',
+    description: 'Полный техпроект квартиры с визуализацией, схемами электрики и проектом с размерами.',
+    thumbnail: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/0.webp',
+    images: [
+      { id: 1, alt: 'Визуализация 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/0.webp' },
+      { id: 2, alt: 'Визуализация 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/1.webp' },
+      { id: 3, alt: 'Проект 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/2.webp' },
+      { id: 4, alt: 'Проект 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/3.webp' },
+      { id: 5, alt: 'Проект 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/4.webp' },
+      { id: 6, alt: 'Проект 6', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/5.webp' },
+      { id: 7, alt: 'Проект 7', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/6.webp' },
+      { id: 8, alt: 'Схемы 8', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/7.webp' },
+      { id: 9, alt: 'Схемы 9', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/8.webp' }
+    ]
+  },
+  {
+    id: 'vyacheslav-trubachenko',
+    title: 'Проект Трубаченко',
+    subtitle: 'Техпроект квартиры с визуализацией и чертежами',
+    area: '50 м²',
+    location: 'Симферополь',
+    year: '2025',
+    description: 'Техпроект квартиры с визуализацией, чертежами и схемами электрики. Полный комплект документации.',
+    thumbnail: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/0.webp',
+    images: [
+      { id: 1, alt: 'Визуализация 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/0.webp' },
+      { id: 2, alt: 'Проект 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/1.webp' },
+      { id: 3, alt: 'Проект 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/2.webp' },
+      { id: 4, alt: 'Проект 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/3.webp' },
+      { id: 5, alt: 'Проект 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/4.webp' },
+      { id: 6, alt: 'Схемы 6', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/5.webp' },
+      { id: 7, alt: 'Схемы 7', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/6.webp' },
+      { id: 8, alt: 'Схемы 8', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/7.webp' },
+      { id: 9, alt: 'Схемы 9', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/8.webp' }
     ]
   }
 ]

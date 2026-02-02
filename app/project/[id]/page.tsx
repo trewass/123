@@ -86,202 +86,102 @@ const projectsData = {
       { id: 6, type: 'image', alt: 'Спецификация', src: '/api/images/Кухня/Проект. пример/Specific.jpg' }
     ]
   },
-  'kitchen-moscow': {
-    title: 'Кухня в Москве',
-    subtitle: 'Современная кухня с продуманной эргономикой',
-    location: 'Москва',
-    year: '2024',
+  'yuliya-suvorova': {
+    title: 'Кухня для Юлии Суворовой',
+    subtitle: 'Техпроект кухни с планировкой электрики',
+    location: 'Симферополь',
+    year: '2025',
     area: '12 м²',
-    description: 'Проект современной кухни с точным планированием всех подключений и мебели. План учитывает расположение бытовой техники, освещения и сантехники для максимального удобства использования.',
+    description: 'Техпроект кухни с планировкой электрики и схемами коммуникаций. Включает схемы электрики, проект с размерами и планировку мебели.',
     details: [
-      'Розетка для ПММ справа от неё, а не за ней',
-      'Высота фартука 60 см от столешницы',
-      'Розетки на фартуке на высоте 1.1 м от пола',
-      'Освещение рабочей зоны LED-лентой',
-      'Вывод воды для посудомоечной машины',
-      'Вентиляция вытяжки через потолок'
+      'Схемы электрики с привязками',
+      'Проект с точными размерами',
+      'Планировка мебели под помещение',
+      'Расположение розеток для техники',
+      'Схемы подключения коммуникаций'
     ],
     images: [
-      { id: 1, type: 'image', alt: 'План розеток', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация кухни', src: undefined },
-      { id: 3, type: 'image', alt: 'Детали мебели', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая кухня', src: undefined }
+      { id: 1, type: 'image', alt: 'Проект 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/0.webp' },
+      { id: 2, type: 'image', alt: 'Проект 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/1.webp' },
+      { id: 3, type: 'image', alt: 'Проект 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/2.webp' },
+      { id: 4, type: 'image', alt: 'Схемы 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/3.webp' },
+      { id: 5, type: 'image', alt: 'Схемы 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/yuliya-suvorova/4.webp' }
     ]
   },
-  'bathroom-sochi': {
-    title: 'Ванная в Сочи',
-    subtitle: 'Премиальная ванная комната',
-    location: 'Сочи',
-    year: '2024',
-    area: '8 м²',
-    description: 'Роскошная ванная комната с панорамным видом на море. Проект включает премиальную сантехнику и продуманную систему освещения.',
-    details: [
-      'Панорамное остекление с видом на море',
-      'Премиальная сантехника и аксессуары',
-      'Система скрытого освещения',
-      'Влагостойкие материалы',
-      'Система вентиляции',
-      'Умное управление освещением'
-    ],
-    images: [
-      { id: 1, type: 'image', alt: 'План ванной комнаты', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация', src: undefined },
-      { id: 3, type: 'image', alt: 'Детали отделки', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая ванная комната', src: undefined }
-    ]
-  },
-  'bedroom-ekb': {
-    title: 'Спальня в Екатеринбурге',
-    subtitle: 'Минималистичная спальня',
-    location: 'Екатеринбург',
-    year: '2024',
-    area: '16 м²',
-    description: 'Современная спальня в стиле минимализм с встроенной гардеробной и продуманной системой освещения.',
-    details: [
-      'Встроенная гардеробная система',
-      'Многоуровневое освещение',
-      'Минималистичная мебель',
-      'Система хранения',
-      'Уютная атмосфера',
-      'Функциональное зонирование'
-    ],
-    images: [
-      { id: 1, type: 'image', alt: 'План спальни', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация спальни', src: undefined },
-      { id: 3, type: 'image', alt: 'Гардеробная система', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая спальня', src: undefined }
-    ]
-  },
-  'kids-room-kazan': {
-    title: 'Детская в Казани',
-    subtitle: 'Многофункциональная детская',
-    location: 'Казань',
-    year: '2024',
-    area: '14 м²',
-    description: 'Детская комната для растущего ребенка с трансформируемой мебелью и продуманной системой хранения.',
-    details: [
-      'Модульная мебель с возможностью трансформации',
-      'Отдельные зоны для игр и учебы',
-      'Система хранения с ящиками и корзинами',
-      'Безопасные материалы',
-      'Яркое освещение',
-      'Эргономичная мебель'
-    ],
-    images: [
-      { id: 1, type: 'image', alt: 'План детской комнаты', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация детской', src: undefined },
-      { id: 3, type: 'image', alt: 'Игровая зона', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая детская комната', src: undefined }
-    ]
-  },
-  'living-room-spb': {
-    title: 'Гостиная в СПб',
-    subtitle: 'Современная гостиная',
-    location: 'Санкт-Петербург',
-    year: '2024',
-    area: '20 м²',
-    description: 'Просторная гостиная с зонированием и многофункциональной мебелью.',
-    details: [
-      'Зонирование пространства',
-      'Многофункциональная мебель',
-      'Система освещения',
-      'Зона отдыха',
-      'Рабочая зона',
-      'Система хранения'
-    ],
-    images: [
-      { id: 1, type: 'image', alt: 'План гостиной', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация гостиной', src: undefined },
-      { id: 3, type: 'image', alt: 'Зона отдыха', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая гостиная', src: undefined }
-    ]
-  },
-  'office-novosibirsk': {
-    title: 'Офис в Новосибирске',
-    subtitle: 'Современный офис',
-    location: 'Новосибирск',
-    year: '2024',
+  'gennadii-brigantina': {
+    title: 'Проект Бригантина',
+    subtitle: 'Комплексный техпроект квартиры',
+    location: 'Симферополь',
+    year: '2025',
     area: '45 м²',
-    description: 'Функциональный офис с продуманной системой хранения и рабочими зонами.',
+    description: 'Комплексный техпроект квартиры с размерами и схемами коммуникаций. Включает схемы электрики, проект с размерами и планировку помещений.',
     details: [
-      'Рабочие зоны',
-      'Система хранения',
-      'Зона отдыха',
-      'Конференц-зона',
-      'Освещение рабочего места',
-      'Эргономичная мебель'
+      'Схемы электрики всех помещений',
+      'Проект с точными размерами',
+      'Планировка помещений',
+      'Схемы коммуникаций',
+      'Детализация узлов подключения'
     ],
     images: [
-      { id: 1, type: 'image', alt: 'План офиса', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация офиса', src: undefined },
-      { id: 3, type: 'image', alt: 'Рабочие зоны', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовый офис', src: undefined }
+      { id: 1, type: 'image', alt: 'Проект с размерами 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/0.webp' },
+      { id: 2, type: 'image', alt: 'Проект с размерами 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/1.webp' },
+      { id: 3, type: 'image', alt: 'Проект с размерами 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/2.webp' },
+      { id: 4, type: 'image', alt: 'Проект с размерами 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/3.webp' },
+      { id: 5, type: 'image', alt: 'Проект с размерами 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/4.webp' },
+      { id: 6, type: 'image', alt: 'Схемы 6', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/5.webp' },
+      { id: 7, type: 'image', alt: 'Схемы 7', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/gennadii-brigantina/6.webp' }
     ]
   },
-  'kitchen-ekb': {
-    title: 'Кухня в Екатеринбурге',
-    subtitle: 'Классическая кухня',
-    location: 'Екатеринбург',
-    year: '2024',
-    area: '15 м²',
-    description: 'Классическая кухня с современными технологиями и эргономичным планированием.',
+  'enver-mirnoe': {
+    title: 'Квартира в Мирном',
+    subtitle: 'Полный техпроект квартиры с визуализацией',
+    location: 'с. Мирное',
+    year: '2025',
+    area: '65 м²',
+    description: 'Полный техпроект квартиры с визуализацией, схемами электрики и проектом с размерами.',
     details: [
-      'Классический стиль',
-      'Современные технологии',
-      'Эргономичное планирование',
-      'Система хранения',
-      'Рабочая зона',
-      'Зона приема гостей'
+      '3D визуализация помещений',
+      'Схемы электрики всей квартиры',
+      'Проект с точными размерами',
+      'Планировка мебели',
+      'Полный цикл проектирования'
     ],
     images: [
-      { id: 1, type: 'image', alt: 'План кухни', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация кухни', src: undefined },
-      { id: 3, type: 'image', alt: 'Детали мебели', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая кухня', src: undefined }
+      { id: 1, type: 'image', alt: 'Визуализация 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/0.webp' },
+      { id: 2, type: 'image', alt: 'Визуализация 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/1.webp' },
+      { id: 3, type: 'image', alt: 'Проект 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/2.webp' },
+      { id: 4, type: 'image', alt: 'Проект 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/3.webp' },
+      { id: 5, type: 'image', alt: 'Проект 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/4.webp' },
+      { id: 6, type: 'image', alt: 'Проект 6', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/5.webp' },
+      { id: 7, type: 'image', alt: 'Проект 7', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/6.webp' },
+      { id: 8, type: 'image', alt: 'Схемы 8', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/7.webp' },
+      { id: 9, type: 'image', alt: 'Схемы 9', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/enver-mirnoe/8.webp' }
     ]
   },
-  'bathroom-moscow': {
-    title: 'Ванная в Москве',
-    subtitle: 'Современная ванная',
-    location: 'Москва',
-    year: '2024',
-    area: '6 м²',
-    description: 'Компактная ванная комната с максимальным использованием пространства.',
+  'vyacheslav-trubachenko': {
+    title: 'Проект Трубаченко',
+    subtitle: 'Техпроект квартиры с визуализацией и чертежами',
+    location: 'Симферополь',
+    year: '2025',
+    area: '50 м²',
+    description: 'Техпроект квартиры с визуализацией, чертежами и схемами электрики. Полный комплект документации.',
     details: [
-      'Максимальное использование пространства',
-      'Компактная сантехника',
-      'Система хранения',
-      'Освещение',
-      'Вентиляция',
-      'Влагостойкие материалы'
+      '3D визуализация интерьера',
+      'Схемы электрики с привязками',
+      'Проект с точными размерами',
+      'Планировка мебели',
+      'Детализация узлов подключения'
     ],
     images: [
-      { id: 1, type: 'image', alt: 'План ванной комнаты', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация', src: undefined },
-      { id: 3, type: 'image', alt: 'Детали отделки', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая ванная комната', src: undefined }
-    ]
-  },
-  'bedroom-kazan': {
-    title: 'Спальня в Казани',
-    subtitle: 'Уютная спальня',
-    location: 'Казань',
-    year: '2024',
-    area: '18 м²',
-    description: 'Уютная спальня с гардеробной и продуманной системой освещения.',
-    details: [
-      'Уютная атмосфера',
-      'Гардеробная система',
-      'Система освещения',
-      'Зона отдыха',
-      'Система хранения',
-      'Функциональная мебель'
-    ],
-    images: [
-      { id: 1, type: 'image', alt: 'План спальни', src: undefined },
-      { id: 2, type: 'image', alt: '3D визуализация спальни', src: undefined },
-      { id: 3, type: 'image', alt: 'Гардеробная система', src: undefined },
-      { id: 4, type: 'image', alt: 'Готовая спальня', src: undefined }
+      { id: 1, type: 'image', alt: 'Визуализация 1', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/0.webp' },
+      { id: 2, type: 'image', alt: 'Проект 2', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/1.webp' },
+      { id: 3, type: 'image', alt: 'Проект 3', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/2.webp' },
+      { id: 4, type: 'image', alt: 'Проект 4', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/3.webp' },
+      { id: 5, type: 'image', alt: 'Проект 5', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/4.webp' },
+      { id: 6, type: 'image', alt: 'Схемы 6', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/5.webp' },
+      { id: 7, type: 'image', alt: 'Схемы 7', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/6.webp' },
+      { id: 8, type: 'image', alt: 'Схемы 8', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/7.webp' },
+      { id: 9, type: 'image', alt: 'Схемы 9', src: 'https://storage.yandexcloud.net/techproekt-images/portfolio/vyacheslav-trubachenko/8.webp' }
     ]
   }
 }
